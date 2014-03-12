@@ -1,0 +1,28 @@
+<template name="home">
+
+    <div id="site-meta">
+        <div id="site-logo">
+            <a href="/">
+                WiH
+            </a>
+        </div>
+        <div id="login-buttons">
+            {{loginButtons align="right"}}
+        </div>
+        <div id="search-container">
+            {{> search}}
+        </div>
+    </div>
+    <div id="site">
+        <div id="new-post-container">
+            {{> newPost}}
+        </div>
+        <div id="content-container">
+            {{yield}}
+        </div>
+        <div id="site-footer">
+            {{> footer}}
+        </div>
+    </div>
+
+</template>

@@ -1,0 +1,43 @@
+<template name="newPost">
+
+    <div id="new-post-rollover-minus">
+        -
+    </div>
+    <div id="new-post-rollover-plus">
+        +
+    </div>
+
+    <form name="new-post-form" id="new-post-form">
+        <fieldset>
+            <label for="new-post-target" class="float-left">
+                {{promptTarget}}
+            </label>
+            <div class="float-right">
+                <a href="#new-post-target-help">?</a>
+            </div>
+            <input type="text" name="target" id="new-post-target" />
+            <p class="note">
+                <!-- this could be in help layover -->
+                {{noteTarget}}
+            </p>
+            <!-- auto-skip back and forth when buffer full, or empty & <bs> -->
+            <label for="new-post-content" class="float-left">
+                {{promptReason}}
+            </label>
+            <div class="float-right">
+                <a href="#new-post-content-help">?</a>
+            </div>
+            <textarea name="reason" id="new-post-content"></textarea>
+            <p class="note">
+                {{noteReason}}
+            </p>
+            <div id="new-post-anonymous-container">
+                <label for="new-post-anonymous" id="new-post-anonymous-label">
+                    <span id="new-post-anonymous">{{promptAnonymous}}</span>
+                </label>
+                <input type="checkbox" name="anonymous" id="new-post-anonymous" />
+            </div>
+        </fieldset>
+    </form>
+
+</template>

@@ -1,0 +1,20 @@
+# Meteor packages used by this project, one per line.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+standard-app-packages
+insecure
+preserve-inputs
+jquery
+accounts-base
+accounts-facebook
+accounts-twitter
+accounts-google
+bootstrap
+iron-router
+jquery-ui
+spin
+accounts-ui
+accounts-password
+email

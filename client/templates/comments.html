@@ -1,0 +1,35 @@
+<template name="comments">
+
+    <div class="post-comments">
+        <div class="comment-contractor">
+            Hide the haters
+        </div>
+        <div class="comment-expander">
+            Show the haters
+        </div>
+        <div class="comments-container">
+            {{> newComment}}
+                <div class="comment-container">
+                    <div class="comment-flag-holder">
+                    </div>
+                    <div class="comment-flag">
+                        &times;
+                    </div>
+                    <p class="comment">
+                        {{user}}
+                        sayz
+                        {{comment}}
+                    </p>
+                    <div class="comment-stamp">
+                        {{stamp}}
+                    </div>
+                    <div class="comment-hate">
+                        <a href="#">Hate on it</a>
+                    </div>
+                </div>
+            {{#each comments}}
+            {{/each}}
+        </div>
+    </div>
+
+</template>

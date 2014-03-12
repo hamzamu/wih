@@ -1,0 +1,31 @@
+<template name="newComment">
+
+    <div class="new-comment-rollover-minus">
+        -
+    </div>
+    <div class="new-comment-rollover-plus">
+        +
+    </div>
+
+    <form name="comment-form" class="new-comment-form">
+        <fieldset class="comment-fieldset">
+            <label for="new-comment-content" class="float-left">
+                {{promptComment}}
+            </label>
+            <div class="float-right">
+                <a href="#new-comment-content-help">?</a>
+            </div>
+            <textarea name="new-comment-content" class="comment-input"></textarea>
+            <p class="note">
+                {{noteComment}}
+            </p>
+            <div class="new-comment-anonymous-container">
+                <label for="new-comment-anonymous" class="new-comment-anonymous-label">
+                    <span class="new-comment-anonymous">{{promptCommentAnonymous}}</span>
+                </label>
+                <input type="checkbox" name="new-comment-anonymous" class="new-comment-anonymous" />
+            </div>
+        </fieldset>
+    </form>
+
+</template>

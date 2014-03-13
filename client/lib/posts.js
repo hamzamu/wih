@@ -15,6 +15,10 @@ Template.postList.helpers({
  * Post template helpers
 */
 Template.post.helpers({
+    ownPost: function() {
+        // Use isOwner?
+        return this.userId == Meteor.userId();
+    },
     username: function() {
         var userid = this.user;
         var username = Meteor.users.findOne(userid);
@@ -22,3 +26,8 @@ Template.post.helpers({
         return (username);
     }
 });
+
+/*
+ * Edit in place by converting values to inputs
+ */
+

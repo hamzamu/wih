@@ -61,9 +61,16 @@ Template.newPost.events({
     */
 
     /*
-     * Upon submit, process form, clear fields & close new post
+     * New post submission
+     * Retard default action
+     *   Check if can be removed by assigning post action to #
+     * Populate client side values
+     * Trigger server method
+     * Clear form fields
+     * Contract new post containers and replace with expansion container
      */
     'submit': function(e) {
+        e.preventDefault();
         var post = {
             stamp: new Date(),
             user: Meteor.userId(),
@@ -71,11 +78,19 @@ Template.newPost.events({
             reason: $(e.target).find('[name=reason]').val(),
             anonymous: $(e.target).find('[name=anonymous]').val(),
         }
-        post._id = Posts.insert(post);
-        // Clear form values
+        Meteor.call ('postNew', post, function (error) {
+            if (error) {
+                // This should be sent to site error message
+                return alert(error.reason);
+            }
+        }
         $("#new-post-form").find("input[type=text], textarea").val("");
-        // Go to new post
-        // Router.go('postPage', post);
+        $("#new-post-rollover-minus").slideUp("", function() {
+            $("#new-post-rollover-plus").show();
+        });
+        $("#new-post-form").slideUp("slow");
+        // Prevent page reload
+        return false;
     }
 });
 
@@ -87,6 +102,17 @@ Template.postList.events({
     'mouseleave .post-flag-container': function (event) {
         $(event.currentTarget).children(".post-meta").children(".post-flag").hide();
     },
+    /*
+     * Submitting in place
+     * Use Posts.update(id, {$set: props}, function(error){}
+     */
+    /*
+     * Flagging post
+     * Insert into hidden collection
+     * Hidden for all or just for user
+     * Need post id
+     *
+     */
 });
 
 // Expand & contract comment triggers
@@ -135,6 +161,51 @@ Template.newComment.events({
         $(".new-comment-form").slideDown("slow");
         $(".new-comment-form").children(".comment-fieldset").children(".comment-input").focus();
     },
+
+    /*
+     * Submit form in place when enter is pressed in input field
+     */
+    'keypress #new-comment-content': function (e) {
+        if (e.which === 13) {
+            $("#new-comment-form").submit(function(e){return false});
+        }
+    },
+
+    /*
+     * Close new comment form when Esc key is pressed
+     */
+    'keypress #new-comment-content': function (e) {
+        if (e.which === 27) {
+            $("#new-comment-rollover-minus").slideUp("", function() {
+                $("#new-comment-rollover-plus").show();
+            });
+            $("#new-comment-form").slideUp("slow");
+        }
+    },
+
+    /*
+     * Upon submit, process form, clear fields & close new comment
+     */
+    'submit': function(e) {
+        e.preventDefault();
+        var comment = {
+            stamp: new Date(),
+            user: Meteor.userId(),
+            comment: $(e.target).find('[name=new-comment]').val(),
+            anonymous: $(e.target).find('[name=new-comment-anonymous]').val(),
+        }
+        comment._id = comments.insert(comment);
+        // Clear form values
+        $("#new-comment").val("");
+        $("#new-comment-anonymous").val("");
+        // Contract new comment features
+        $("#new-comment-rollover-minus").slideUp("", function() {
+            $("#new-comment-rollover-plus").show();
+        });
+        $("#new-comment-form").slideUp("slow");
+        // Prevent page reload
+        return false;
+    }
 
 });
 

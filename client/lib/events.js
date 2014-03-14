@@ -1,14 +1,22 @@
+    /*
+     * Use Posts.update(id, {$set: props}, function(error){}
+     */
+
+/*
+ * Error template triggers
+ */
+Template.error.events({
+    
+    /*
+     * Change error seen flag to true when dismissed
+     */
+
+});
+
 /*
  * New post triggers
  */
 Template.newPost.events({
-
-    /*
-     * Contract container when mouse leaves form
-    'mouseleave #new-post-form': function (event) {
-        $("#new-post-form").slideUp("slow");
-    },
-    */
 
     /*
      * Contract container when clicking minus sign div
@@ -53,12 +61,12 @@ Template.newPost.events({
 
     /*
      * Submit form in place when enter is pressed in text area
-    'keypress #new-post-content': function (e) {
+    */
+    'keyup #new-post-content': function (e,t) {
         if (e.which === 13) {
             $("#new-post-form").submit(function(e){return false});
         }
     },
-    */
 
     /*
      * New post submission
@@ -66,6 +74,7 @@ Template.newPost.events({
      *   Check if can be removed by assigning post action to #
      * Populate client side values
      * Trigger server method
+     *   Send post to postNew method which returns error
      * Clear form fields
      * Contract new post containers and replace with expansion container
      */
@@ -77,11 +86,17 @@ Template.newPost.events({
             target: $(e.target).find('[name=target]').val(),
             reason: $(e.target).find('[name=reason]').val(),
             anonymous: $(e.target).find('[name=anonymous]').val(),
+            haters: 0,
+            comments: 0
         }
         Meteor.call ('postNew', post, function (error) {
             if (error) {
                 // This should be sent to site error message
-                return alert(error.reason);
+                throwError(error.reason);
+                
+                if (error.error === 302) {
+                    // dupe, redirect to post
+                }
             }
         }
         $("#new-post-form").find("input[type=text], textarea").val("");
@@ -94,8 +109,14 @@ Template.newPost.events({
     }
 });
 
-// Post flagging rollover triggers
+/*
+ * Post list triggers
+ */
 Template.postList.events({
+    
+    /*
+     * Show and hide post flagger
+     */
     'mouseenter .post-flag-container': function (event) {
         $(event.currentTarget).children(".post-meta").children(".post-flag").show();
     },
@@ -103,20 +124,24 @@ Template.postList.events({
         $(event.currentTarget).children(".post-meta").children(".post-flag").hide();
     },
     /*
-     * Submitting in place
-     * Use Posts.update(id, {$set: props}, function(error){}
-     */
-    /*
      * Flagging post
      * Insert into hidden collection
      * Hidden for all or just for user
      * Need post id
      *
      */
+    'click .post-flag': function (event) {
+
+    },
 });
 
-// Expand & contract comment triggers
+/*
+ * Comment list triggers
+ */
 Template.comments.events({
+    /*
+     * Expand & contract comment triggers
+     */
     'click .comment-contractor': function (event) {
         $(event.currentTarget).hide();
         $(event.currentTarget).siblings(".comment-expander").show();
@@ -134,6 +159,10 @@ Template.comments.events({
             $(event.currentTarget).parent().siblings.each
                 $(event.currentTarget).siblings(".comments-container").slideDown("slow");
         */
+
+        /*
+         * Load comments on first expansion
+         */
     },
 });
 
@@ -161,20 +190,18 @@ Template.newComment.events({
         $(".new-comment-form").slideDown("slow");
         $(".new-comment-form").children(".comment-fieldset").children(".comment-input").focus();
     },
-
     /*
      * Submit form in place when enter is pressed in input field
      */
-    'keypress #new-comment-content': function (e) {
+    'keyup #new-comment-content': function (e) {
         if (e.which === 13) {
             $("#new-comment-form").submit(function(e){return false});
         }
     },
-
     /*
      * Close new comment form when Esc key is pressed
      */
-    'keypress #new-comment-content': function (e) {
+    'keyup #new-comment-content': function (e) {
         if (e.which === 27) {
             $("#new-comment-rollover-minus").slideUp("", function() {
                 $("#new-comment-rollover-plus").show();
@@ -182,18 +209,20 @@ Template.newComment.events({
             $("#new-comment-form").slideUp("slow");
         }
     },
-
     /*
      * Upon submit, process form, clear fields & close new comment
      */
     'submit': function(e) {
         e.preventDefault();
+        // Formulate comment values
         var comment = {
             stamp: new Date(),
-            user: Meteor.userId(),
+            userId: Meteor.userId(),
+            postId: null,
             comment: $(e.target).find('[name=new-comment]').val(),
             anonymous: $(e.target).find('[name=new-comment-anonymous]').val(),
         }
+        // Throw in some error checking
         comment._id = comments.insert(comment);
         // Clear form values
         $("#new-comment").val("");
@@ -203,14 +232,21 @@ Template.newComment.events({
             $("#new-comment-rollover-plus").show();
         });
         $("#new-comment-form").slideUp("slow");
+        // Update comment count
+        // Create notification for post owner
         // Prevent page reload
         return false;
     }
 
 });
 
-// Comment flagging rollover triggers
+/*
+ * Comment list triggers
+ */
 Template.comments.events({
+    /*
+     * Show and hide comment flagger
+     */
     'mouseenter .comment-container': function (event) {
         $(event.currentTarget).children(".comment-flag-holder").hide();
         $(event.currentTarget).children(".comment-flag").show();
@@ -218,5 +254,15 @@ Template.comments.events({
     'mouseleave .comment-container': function (event) {
         $(event.currentTarget).children(".comment-flag").hide();
         $(event.currentTarget).children(".comment-flag-holder").show();
+    },
+    /*
+     * Flagging comment
+     * Insert into hidden collection
+     * Hidden for all or just for user
+     * Need post id
+     *
+     */
+    'click .comment-flag': function (event) {
+
     },
 });

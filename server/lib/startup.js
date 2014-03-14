@@ -1,18 +1,29 @@
-// code to run on server at startup
+/*
+ * Server side startup
+ */
 Meteor.startup(function () {
 
-    // Example data
+    /*
+     * Example data
+     */
     if (
-        (Site.debug == true)
+        (Site.demo == true)
         && (Posts.find().count() === 0) 
     ){
-        Posts.insert({
+        postid = Posts.insert({
             stamp: "2014/03/09 18:57:36",
             user:  "User Xyz",
             target: "x",
             reason: "y",
         })
-        Posts.insert({
+        commentid = Comments.insert({
+            userId: userId,
+            postId: postid,
+            stamp: "2014/03/09 18:57:36",
+            user:  "User Xyz",
+            comment: "y",
+        })
+        postid = Posts.insert({
             stamp: "2014/03/09 15:57:36",
             user:  "User Abc",
             target: "web sites that value form over function",
@@ -32,7 +43,7 @@ Meteor.startup(function () {
                 },
             ],
         })
-        Posts.insert({
+        postid = Posts.insert({
             stamp: "2014/03/09 18:54:42",
             user:  "Anonymous User",
             target: "blue skies",

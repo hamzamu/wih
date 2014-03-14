@@ -1,139 +1,29 @@
-    /*
-     * Use Posts.update(id, {$set: props}, function(error){}
-     */
+// This needs to be more selective
+Meteor.subscribe('comments');
 
-/*
- * Error template triggers
- */
-Template.error.events({
-    
-    /*
-     * Change error seen flag to true when dismissed
-     */
+Template.newComment.promptComment = function () {
+    return "Why u hatin':";
+};
+Template.newComment.noteComment = function () {
+    return "This will be tweeted..sooner or later >:o";
+};
+Template.newComment.promptCommentAnonymous = function () {
+    return "Comment anonymously?";
+};
 
-});
 
-/*
- * New post triggers
- */
-Template.newPost.events({
 
-    /*
-     * Contract container when clicking minus sign div
-     */
-    'click #new-post-rollover-minus': function (event) {
-        $("#new-post-rollover-minus").slideUp("", function() {
-            $("#new-post-rollover-plus").show();
-        });
-        $("#new-post-form").slideUp("slow");
-    },
+// temp
 
-    /*
-     * Expand container when clicking plus sign div
-     */
-    'click #new-post-rollover-plus': function (event) {
-        $("#new-post-rollover-plus").hide();
-        $("#new-post-rollover-minus").slideDown("slow");
-        $("#new-post-form").slideDown("slow");
-        $("#new-post-target").focus();
-    },
-
-    /*
-     * Submit form in place when enter is pressed in input field
-     */
-    'keypress #new-post-target': function (e) {
-        if (e.which === 13) {
-            $("#new-post-form").submit(function(e){return false});
-        }
-    },
-
-    /*
-     * Close new post form when Esc key is pressed
-     */
-    'keypress #new-post-target': function (e) {
-        if (e.which === 27) {
-            $("#new-post-rollover-minus").slideUp("", function() {
-                $("#new-post-rollover-plus").show();
-            });
-            $("#new-post-form").slideUp("slow");
-        }
-    },
-
-    /*
-     * Submit form in place when enter is pressed in text area
-    */
-    'keyup #new-post-content': function (e,t) {
-        if (e.which === 13) {
-            $("#new-post-form").submit(function(e){return false});
-        }
-    },
-
-    /*
-     * New post submission
-     * Retard default action
-     *   Check if can be removed by assigning post action to #
-     * Populate client side values
-     * Trigger server method
-     *   Send post to postNew method which returns error
-     * Clear form fields
-     * Contract new post containers and replace with expansion container
-     */
-    'submit': function(e) {
-        e.preventDefault();
-        var post = {
-            stamp: new Date(),
-            user: Meteor.userId(),
-            target: $(e.target).find('[name=target]').val(),
-            reason: $(e.target).find('[name=reason]').val(),
-            anonymous: $(e.target).find('[name=anonymous]').val(),
-            haters: 0,
-            comments: 0
-        }
-        Meteor.call ('postNew', post, function (error) {
-            if (error) {
-                // This should be sent to site error message
-                throwError(error.reason);
-                
-                if (error.error === 302) {
-                    // dupe, redirect to post
-                }
-            }
-        }
-        $("#new-post-form").find("input[type=text], textarea").val("");
-        $("#new-post-rollover-minus").slideUp("", function() {
-            $("#new-post-rollover-plus").show();
-        });
-        $("#new-post-form").slideUp("slow");
-        // Prevent page reload
-        return false;
-    }
-});
-
-/*
- * Post list triggers
- */
-Template.postList.events({
-    
-    /*
-     * Show and hide post flagger
-     */
-    'mouseenter .post-flag-container': function (event) {
-        $(event.currentTarget).children(".post-meta").children(".post-flag").show();
-    },
-    'mouseleave .post-flag-container': function (event) {
-        $(event.currentTarget).children(".post-meta").children(".post-flag").hide();
-    },
-    /*
-     * Flagging post
-     * Insert into hidden collection
-     * Hidden for all or just for user
-     * Need post id
-     *
-     */
-    'click .post-flag': function (event) {
-
-    },
-});
+Template.comments.stamp = function () {
+    return "2014/03/09 23:32:11";
+};
+Template.comments.user = function () {
+    return "User Zyx";
+};
+Template.comments.comment = function () {
+    return "this post fucking sux bro! :D";
+};
 
 /*
  * Comment list triggers

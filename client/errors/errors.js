@@ -7,3 +7,15 @@ Template.errors.helpers({
         return Errors.find();
     }
 });
+
+/*
+ * Error template triggers
+ */
+Template.error.events({
+    
+    /*
+     * Change error seen flag to true when dismissed
+     */
+
+});
+

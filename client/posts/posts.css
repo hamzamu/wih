@@ -1,0 +1,118 @@
+#new-post-container {
+    background-color: #baa;
+    border: 1px solid grey;
+}
+#new-post-rollover-minus,
+#new-post-rollover-plus {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    font-size: 1.4em;
+    text-align: center;
+}
+#new-post-rollover-minus {
+    background-color: lightgreen;
+    display: none;
+}
+#new-post-form {
+    display: none;
+}
+#new-post-form fieldset {
+    margin: .5em auto;
+    width: 80%;
+}
+#new-post-form label {
+    color: yellow;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+#new-post-form a {
+}
+#new-post-form input[type="text"] {
+    clear: both;
+    display: block;
+    margin-bottom: .1em;
+    width: 100%;
+}
+#new-post-form textarea {
+    clear: both;
+    display: block;
+    height: 10em;
+    margin-bottom: .1em;
+    width: 100%;
+}
+#new-post-anonymous-container {
+    text-align: right;
+}
+#new-post-anonymous-label {
+    display: inline;
+}
+#new-post-anonymous {
+    font-size: .8em;
+}
+#new-post-form input[type="checkbox"] {
+    bottom: .25em;
+    position: relative;
+}
+#posts-container {
+    padding-bottom: 1em; 
+}
+.post-social ul {
+    list-style: none;
+    margin: .2em auto;
+    width: 80%;
+}
+.post-social li {
+    display: inline;
+    margin: .2em 1em;
+}
+.post-container {
+    background-color: #baa;
+    border: 1px solid black;
+    margin: 1em auto;
+    width: 80%;
+}
+.post-meta {
+    height: 1.8em
+}
+.post-stamp {
+    float: left;
+    font-size: .8em;
+    margin: .25em 1em; 
+    position: relative;
+    top: -.1em;
+}
+.post-flag {
+    display: none;
+    float: right;
+    font-size: 1em;
+    margin: .25em 1em; 
+    position: relative;
+    top: -.2em;
+}
+.post {
+    clear: both;
+    color: red;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: .5em 2em 1em 2em; 
+}
+.post-target {
+    color: yellow;
+    font-style: italic;
+}
+.post-reason {
+    color: yellow;
+    font-style: italic;
+}
+.post-hates {
+    font-size: .8em;
+    margin: .25em 1em; 
+}
+.post-social {
+    background-color: #877;
+    font-weight: bold;
+    font-size: .9em;
+    height: 20px;
+    text-align: center;
+}

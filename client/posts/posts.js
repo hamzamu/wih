@@ -37,7 +37,12 @@ Template.postList.helpers({
 Template.post.helpers({
     ownPost: function() {
         // Use isOwner?
-        return this.userId == Meteor.userId();
+        if (this.userId && Meteor.userId()) {
+            alert(this.userId + "==" + Meteor.userId());
+            return this.userId == Meteor.userId();
+        } else {
+            return false;
+        }
     },
     username: function() {
         var userid = this.user;
@@ -81,18 +86,9 @@ Template.newPost.events({
     },
 
     /*
-     * Submit form in place when enter is pressed in input field
-     */
-    'keypress #new-post-target': function (e) {
-        if (e.which === 13) {
-            $("#new-post-form").submit(function(e){return false});
-        }
-    },
-
-    /*
      * Close new post form when Esc key is pressed
      */
-    'keypress #new-post-target': function (e) {
+    'keyup #new-post-form': function (e) {
         if (e.which === 27) {
             $("#new-post-rollover-minus").slideUp("", function() {
                 $("#new-post-rollover-plus").show();
@@ -102,10 +98,21 @@ Template.newPost.events({
     },
 
     /*
+     * Submit form in place when enter is pressed in input field
+     */
+    'keypress #new-post-target': function (e) {
+        if (e.which === 13) {
+            $("#new-post-form").submit(function(e){return false});
+        }
+    },
+
+    /*
      * Submit form in place when enter is pressed in text area
     */
-    'keyup #new-post-content': function (e,t) {
-        if (e.which === 13) {
+    'keypress #new-post-reason': function (e) {
+        if (e.which == 13) {
+            $("#new-post-target").focus();
+            // no worky!
             $("#new-post-form").submit(function(e){return false});
         }
     },
@@ -130,7 +137,8 @@ Template.newPost.events({
             anonymous: $(e.target).find('[name=anonymous]').val(),
             haters: 0,
             comments: 0
-        }
+        };
+        // no worky!
         Meteor.call ('postNew', post, function (error) {
             if (error) {
                 // This should be sent to site error message
@@ -140,7 +148,7 @@ Template.newPost.events({
                     // dupe, redirect to post
                 }
             }
-        }
+        });
         $("#new-post-form").find("input[type=text], textarea").val("");
         $("#new-post-rollover-minus").slideUp("", function() {
             $("#new-post-rollover-plus").show();

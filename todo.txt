@@ -1,0 +1,10 @@
+had username output all fixed but
+broke it trying to put users in by automation
+before breaking things worse, try reset
+and do it via the page dummy!
+
+bug in new comment headers
+fix username in comments
+error check comments (insert/update & values)
+fix anonymous for posts & comments
+then fix errors & thoroughly test!

@@ -54,7 +54,7 @@ Meteor.methods ({
                    user.userId,
                    content,
                    haters,
-                   anonymous,
+                   anonymous
                    )
                );
 

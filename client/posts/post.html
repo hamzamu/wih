@@ -4,12 +4,12 @@
             <div class="post-meta">
                 <div class="post-stamp">
                     <a href="{{pathFor 'postPage'}}">
-                        {{stamp}}
+                        {{stamp}} :: {{_id}}
                     </a>
                 </div>
                 {{#if ownPost}}
                     <div class="post-edit">
-                        E
+                        Edit
                     </div>
                 {{/if}}
                 <div class="post-flag">
@@ -17,7 +17,7 @@
                 </div>
             </div>
             <p class="post">
-                {{username}} hates
+                {{user.username}} hates
                 <span class="post-target">{{target}}</span> 
                 because
                 <span class="post-reason">{{reason}}</span> 

@@ -21,13 +21,12 @@ Meteor.methods ({
 
         var dupeTarget = false;
         var dupeReason = false;
-        var postAnonymous = false;
-        var stamp = new Date().getTime();
-        var user = Meteor.user();
-        var comments = 0;
-        var haters = 0;
+        // Make sure they don't cheat
+        // postValues.user = Meteor.user();
+        // comments = 0;
+        // haters = 0;
 
-        if (!user) {
+        if (!postValues.user) {
             throw new Meteor.Error (
                 401, "Gotta be logged in, sucka"
             );
@@ -46,7 +45,7 @@ Meteor.methods ({
         }
 
         if (postValues.anonymous) {
-            postAnonymous = true;
+            postValues.anonymous = true;
         }
 
         // Find dupes
@@ -55,13 +54,14 @@ Meteor.methods ({
         // Explain.
         var post = _.extend(
                _.pick(
-                   postAttributes,
-                   target,
-                   reason,
-                   stamp,
-                   user.userId,
-                   comments,
-                   haters,
+                   postValues,
+                   'target',
+                   'reason',
+                   'stamp',
+                   'user',
+                   'anonymous',
+                   'comments',
+                   'haters'
                    )
                );
 

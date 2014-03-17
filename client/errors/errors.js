@@ -1,3 +1,5 @@
+Meteor.subscribe('errors');
+
 /*
  * Errors template helpers
  */

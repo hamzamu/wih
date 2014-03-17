@@ -11,19 +11,28 @@ Template.newComment.promptCommentAnonymous = function () {
     return "Comment anonymously?";
 };
 
+/*
+ * Comment template helpers
+ */
+Template.comment.helpers({
+    username: function(id) {
+        var username = Meteor.users.findOne(id);
+        alert(JSON.stringify(userName(id)));
+        return (userName(id));
+    }
+});
 
-
-// temp
-
-Template.comments.stamp = function () {
-    return "2014/03/09 23:32:11";
-};
-Template.comments.user = function () {
-    return "User Zyx";
-};
-Template.comments.comment = function () {
-    return "this post fucking sux bro! :D";
-};
+/*
+ * Comment list template helpers
+ */
+Template.comments.helpers({
+    comments: function() {
+        return Comments.find(
+                {postId: this._id},
+                {sort: {stamp: -1}}
+            );
+    },
+});
 
 /*
  * Comment list triggers
@@ -83,48 +92,48 @@ Template.newComment.events({
     /*
      * Submit form in place when enter is pressed in input field
      */
-    'keyup #new-comment-content': function (e) {
+    'keypress .comment-fieldset': function (e) {
         if (e.which === 13) {
-            $("#new-comment-form").submit(function(e){return false});
-        }
-    },
-    /*
-     * Close new comment form when Esc key is pressed
-     */
-    'keyup #new-comment-content': function (e) {
-        if (e.which === 27) {
-            $("#new-comment-rollover-minus").slideUp("", function() {
-                $("#new-comment-rollover-plus").show();
+            var comment = {
+                stamp: new Date(),
+                userId: Meteor.userId(),
+                postId: this._id,
+// no worky
+                comment: $('.comment-input').val(),
+                anonymous: $('.new-comment-anonymous').val(),
+                haters: 0,
+                flags: 0
+            }
+            // Throw in some error checking
+            if (comment._id = Comments.insert(comment)) {
+                // Clear form values
+                $(".comment-input").val("");
+                $(".new-comment-anonymous").val("");
+                // Contract new comment features
+                $(".new-comment-rollover-minus").slideUp("", function() {
+                    $(".new-comment-rollover-plus").show();
+                });
+                $(".new-comment-form").slideUp("slow");
+                // Update comment count
+                // Create notification for post owner
+            }
+        } else if (e.which === 27) {
+// no worky
+alert('enter');
+            /*
+             * Close new comment form when Esc key is pressed
+             */
+            $(".new-comment-rollover-minus").slideUp("", function() {
+                $(".new-comment-rollover-plus").show();
             });
-            $("#new-comment-form").slideUp("slow");
+            $(".new-comment-form").slideUp("slow");
         }
     },
     /*
-     * Upon submit, process form, clear fields & close new comment
+     * Prevent submission
      */
     'submit': function(e) {
         e.preventDefault();
-        // Formulate comment values
-        var comment = {
-            stamp: new Date(),
-            userId: Meteor.userId(),
-            postId: null,
-            comment: $(e.target).find('[name=new-comment]').val(),
-            anonymous: $(e.target).find('[name=new-comment-anonymous]').val(),
-        }
-        // Throw in some error checking
-        comment._id = comments.insert(comment);
-        // Clear form values
-        $("#new-comment").val("");
-        $("#new-comment-anonymous").val("");
-        // Contract new comment features
-        $("#new-comment-rollover-minus").slideUp("", function() {
-            $("#new-comment-rollover-plus").show();
-        });
-        $("#new-comment-form").slideUp("slow");
-        // Update comment count
-        // Create notification for post owner
-        // Prevent page reload
         return false;
     }
 

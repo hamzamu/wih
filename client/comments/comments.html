@@ -5,30 +5,38 @@
             Hide the haters
         </div>
         <div class="comment-expander">
-            Show the haters
+            Show the haters :: {{_id}}
         </div>
         <div class="comments-container">
             {{> newComment}}
-                <div class="comment-container">
-                    <div class="comment-flag-holder">
-                    </div>
-                    <div class="comment-flag">
-                        &times;
-                    </div>
-                    <p class="comment">
-                        {{user}}
-                        sayz
-                        {{comment}}
-                    </p>
-                    <div class="comment-stamp">
-                        {{stamp}}
-                    </div>
-                    <div class="comment-hate">
-                        <a href="#">Hate on it</a>
-                    </div>
-                </div>
             {{#each comments}}
+                {{> comment}}
             {{/each}}
+        </div>
+    </div>
+
+</template>
+
+<template name="comment">
+
+    <div class="comment-container">
+        <div class="comment-flag-holder">
+        </div>
+        <div class="comment-flag">
+            &times;
+        </div>
+        <p class="comment">
+            {{username userId}}
+            ::
+            {{userId}}
+            sayz
+            {{comment}}
+        </p>
+        <div class="comment-stamp">
+            {{stamp}}
+        </div>
+        <div class="comment-hate">
+            <a href="#">Hate on it</a>
         </div>
     </div>
 

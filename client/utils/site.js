@@ -1,1 +1,1 @@
-Meteor.subscribe('site');
+// Meteor.subscribe('site');

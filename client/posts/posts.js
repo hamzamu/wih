@@ -45,9 +45,8 @@ Template.post.helpers({
         }
     },
     username: function() {
-        var userid = this.user;
+        var userid = this.userId;
         var username = Meteor.users.findOne(userid);
-        var username = "arthax0r";
         return (username);
     }
 });
@@ -111,8 +110,8 @@ Template.newPost.events({
     */
     'keypress #new-post-reason': function (e) {
         if (e.which == 13) {
-            $("#new-post-target").focus();
-            // no worky!
+        $("#new-post-target").focus();
+// no worky!
             $("#new-post-form").submit(function(e){return false});
         }
     },
@@ -131,29 +130,31 @@ Template.newPost.events({
         e.preventDefault();
         var post = {
             stamp: new Date(),
-            user: Meteor.userId(),
+            user: Meteor.user(),
             target: $(e.target).find('[name=target]').val(),
             reason: $(e.target).find('[name=reason]').val(),
             anonymous: $(e.target).find('[name=anonymous]').val(),
             haters: 0,
             comments: 0
         };
-        // no worky!
         Meteor.call ('postNew', post, function (error) {
             if (error) {
                 // This should be sent to site error message
+// no worky!
                 throwError(error.reason);
                 
                 if (error.error === 302) {
                     // dupe, redirect to post
                 }
+            } else {
+                // Should be only on success
+                $("#new-post-form").find("input[type=text], textarea").val("");
+                $("#new-post-rollover-minus").slideUp("", function() {
+                    $("#new-post-rollover-plus").show();
+                });
+                $("#new-post-form").slideUp("slow");
             }
         });
-        $("#new-post-form").find("input[type=text], textarea").val("");
-        $("#new-post-rollover-minus").slideUp("", function() {
-            $("#new-post-rollover-plus").show();
-        });
-        $("#new-post-form").slideUp("slow");
         // Prevent page reload
         return false;
     }

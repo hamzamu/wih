@@ -1,3 +1,7 @@
+Accounts.ui.config ({
+    passwordSignupFields: 'USERNAME_AND_EMAIL',
+});
+
 Meteor.startup(function () {
     
     // Assign unique IDs to all post flags

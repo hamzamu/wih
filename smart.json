@@ -1,6 +1,7 @@
 {
   "packages": {
     "jquery-ui": {},
-    "spin": {}
+    "spin": {},
+    "iron-router-progress": {}
   }
 }

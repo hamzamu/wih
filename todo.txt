@@ -1,10 +1,8 @@
-had username output all fixed but
-broke it trying to put users in by automation
-before breaking things worse, try reset
-and do it via the page dummy!
-
-bug in new comment headers
-fix username in comments
+manual inserts are not producing the same results as automated ones
+determine username for comments server side
 error check comments (insert/update & values)
 fix anonymous for posts & comments
 then fix errors & thoroughly test!
+bring all the code into continuity
+
+flags should operate like a combination of comments & errors

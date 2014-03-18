@@ -37,8 +37,8 @@ Template.postList.helpers({
 Template.post.helpers({
     ownPost: function() {
         // Use isOwner?
+//        alert(this.userId + "==" + Meteor.userId());
         if (this.userId && Meteor.userId()) {
-            alert(this.userId + "==" + Meteor.userId());
             return this.userId == Meteor.userId();
         } else {
             return false;
@@ -141,7 +141,7 @@ Template.newPost.events({
             if (error) {
                 // This should be sent to site error message
 // no worky!
-                throwError(error.reason);
+                errorThrow(error.reason);
                 
                 if (error.error === 302) {
                     // dupe, redirect to post

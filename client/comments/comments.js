@@ -15,10 +15,9 @@ Template.newComment.promptCommentAnonymous = function () {
  * Comment template helpers
  */
 Template.comment.helpers({
-    username: function(id) {
-        var username = Meteor.users.findOne(id);
-        alert(JSON.stringify(userName(id)));
-        return (userName(id));
+    username: function() {
+        alert(userName(this.userId));
+        return (userName(this.userId));
     }
 });
 
@@ -94,11 +93,18 @@ Template.newComment.events({
      */
     'keypress .comment-fieldset': function (e) {
         if (e.which === 13) {
+            // Trigger login/signup box if not logged in
+            if (!Meteor.user()) {
+                errorThrow("Gotta be logged in ta comment, mannngggzzz");
+                Accounts.ui.loginButtonsSession.set('dropdownVisible', true);                                                                // 8
+                Deps.flush();                                                                                                    // 9
+                Accounts.ui.correctDropdownZIndexes();  
+                return false;
+            }
             var comment = {
                 stamp: new Date(),
                 userId: Meteor.userId(),
                 postId: this._id,
-// no worky
                 comment: $('.comment-input').val(),
                 anonymous: $('.new-comment-anonymous').val(),
                 haters: 0,

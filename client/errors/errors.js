@@ -5,8 +5,11 @@ Meteor.subscribe('errors');
  */
 Template.errors.helpers({
     errors: function() {
-        // Add check to display only unseen errors
-        return Errors.find();
+        var e = Errors.find();
+        if (e.count() > 0) {
+            $('#iron-router-progress').hide();
+        }
+        return e;
     }
 });
 
@@ -18,6 +21,9 @@ Template.error.events({
     /*
      * Change error seen flag to true when dismissed
      */
+    'click button': function(e) {
+        errorClear(e.currentTarget.id);
+    },
 
 });
 

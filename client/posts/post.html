@@ -4,7 +4,7 @@
             <div class="post-meta">
                 <div class="post-stamp">
                     <a href="{{pathFor 'postPage'}}">
-                        {{stamp}} :: {{_id}}
+                        {{stamp}}
                     </a>
                 </div>
                 {{#if ownPost}}
@@ -17,9 +17,9 @@
                 </div>
             </div>
             <p class="post">
-                {{user.username}} hates
+                {{username}} {{action}}
                 <span class="post-target">{{target}}</span> 
-                because
+                {{conjunction}}
                 <span class="post-reason">{{reason}}</span> 
             </p>
             <p class="post-hates">

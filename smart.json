@@ -2,6 +2,7 @@
   "packages": {
     "jquery-ui": {},
     "spin": {},
-    "iron-router-progress": {}
+    "iron-router-progress": {},
+    "smart-publish": {}
   }
 }

@@ -15,10 +15,6 @@ Template.newComment.promptCommentAnonymous = function () {
  * Comment template helpers
  */
 Template.comment.helpers({
-    username: function() {
-        alert(userName(this.userId));
-        return (userName(this.userId));
-    }
 });
 
 /*
@@ -89,6 +85,12 @@ Template.newComment.events({
         $(".new-comment-form").children(".comment-fieldset").children(".comment-input").focus();
     },
     /*
+     * Expand container when clicking plus sign div
+     */
+    'click .hate-on-it': function (e) {
+        // $(".new-comment-rollover-plus").hide();
+    },
+    /*
      * Submit form in place when enter is pressed in input field
      */
     'keypress .comment-fieldset': function (e) {
@@ -96,15 +98,17 @@ Template.newComment.events({
             // Trigger login/signup box if not logged in
             if (!Meteor.user()) {
                 errorThrow("Gotta be logged in ta comment, mannngggzzz");
+                /*
                 Accounts.ui.loginButtonsSession.set('dropdownVisible', true);                                                                // 8
                 Deps.flush();                                                                                                    // 9
                 Accounts.ui.correctDropdownZIndexes();  
+                */
                 return false;
             }
             var comment = {
-                stamp: new Date(),
-                userId: Meteor.userId(),
                 postId: this._id,
+                stamp: new Date(),
+                username: Meteor.user().username,
                 comment: $('.comment-input').val(),
                 anonymous: $('.new-comment-anonymous').val(),
                 haters: 0,

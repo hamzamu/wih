@@ -1,7 +1,10 @@
-// Subscribing to limited posts
-// Meteor.subscribe('posts', author);
-
 // Template Variables
+Template.post.action = function () {
+    return "hates";
+};
+Template.post.conjunction = function () {
+    return "because";
+};
 Template.newPost.promptTarget = function () {
     return "What I hate is:";
 };
@@ -35,19 +38,18 @@ Template.postList.helpers({
  * Post template helpers
 */
 Template.post.helpers({
-    ownPost: function() {
+    ownPost: function(p) {
         // Use isOwner?
 //        alert(this.userId + "==" + Meteor.userId());
-        if (this.userId && Meteor.userId()) {
-            return this.userId == Meteor.userId();
+        if (p.username && Meteor.user().username) {
+            return true;
         } else {
             return false;
         }
     },
-    username: function() {
-        var userid = this.userId;
-        var username = Meteor.users.findOne(userid);
-        return (username);
+    date: function() {
+        date = this.stamp;
+        return date;
     }
 });
 
@@ -55,9 +57,9 @@ Template.post.helpers({
  * Edit in place by converting values to inputs
  */
 
-    /*
-     * Use Posts.update(id, {$set: props}, function(error){}
-     */
+/*
+ * Use Posts.update(id, {$set: props}, function(error){}
+ */
 
 /*
  * New post triggers
@@ -130,19 +132,17 @@ Template.newPost.events({
         e.preventDefault();
         var post = {
             stamp: new Date(),
-            user: Meteor.user(),
+            username: Meteor.user().username,
             target: $(e.target).find('[name=target]').val(),
             reason: $(e.target).find('[name=reason]').val(),
             anonymous: $(e.target).find('[name=anonymous]').val(),
+            comments: 0,
+            flags: 0,
             haters: 0,
-            comments: 0
         };
         Meteor.call ('postNew', post, function (error) {
             if (error) {
-                // This should be sent to site error message
-// no worky!
                 errorThrow(error.reason);
-                
                 if (error.error === 302) {
                     // dupe, redirect to post
                 }

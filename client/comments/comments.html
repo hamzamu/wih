@@ -5,7 +5,7 @@
             Hide the haters
         </div>
         <div class="comment-expander">
-            Show the haters :: {{_id}}
+            Show the haters
         </div>
         <div class="comments-container">
             {{> newComment}}
@@ -26,9 +26,7 @@
             &times;
         </div>
         <p class="comment">
-            {{username userId}}
-            ::
-            {{userId}}
+            {{username}}
             sayz
             {{comment}}
         </p>
@@ -36,7 +34,12 @@
             {{stamp}}
         </div>
         <div class="comment-hate">
-            <a href="#">Hate on it</a>
+            {{#if haters}}
+                {{haters}} users
+                <a href="#" class="hate-on-it">hate on it</a>
+            {{else}}
+                <a href="#" class="hate-on-it">Hate on it</a>
+            {{/if}}
         </div>
     </div>
 

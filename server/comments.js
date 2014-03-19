@@ -1,5 +1,46 @@
-Meteor.methods ({
+/*
+ * Comment publications
+ */
+Meteor.publish('comments', function(c) {
+    
+    // Only comments for posts appearing on page should be published
+    // return Comments.find({}, {limit: 10});
+    return Comments.find({});
 
+});
+
+
+/*
+ * Permissions for Comments
+ */
+Comments.allow({
+    insert: function () {
+        // Only for logged in users
+        return !! Meteor.user();
+    },
+    update: isOwner,
+    update: isAdmin,
+    remove: false,
+
+});
+
+/*
+ * Denials for Comments
+ */
+Comments.deny({
+    // Deny when callback returns true
+    // Limit update fields
+    update: function (userId, post, fieldNames) {
+        // editable fields list
+        return (_.without(fieldNames, 'comment').length > 0);
+    }
+});
+
+/*
+ * Server side comment functions
+ */
+Meteor.methods ({
+    
     /*
      * New comment submission
      *
@@ -19,13 +60,16 @@ Meteor.methods ({
      */
     commentNew: function (commentValues) {
 
+        /*
         var dupe = false;
-        var commentAnonymous = false;
         var stamp = new Date().getTime();
-        var user = Meteor.user();
+        var username = Meteor.user().username;
         var postId = null;
-        var content = null;
+        var comment = null;
+        var anonymous = false;
         var haters = 0;
+        var flags = 0;
+        */
 
         if (!user) {
             throw new Meteor.Error (
@@ -49,12 +93,14 @@ Meteor.methods ({
         // Explain.
         var comment = _.extend(
                _.pick(
-                   commentAttributes,
+                   commentValues,
+                   postId,
                    stamp,
-                   user.userId,
-                   content,
+                   username,
+                   comment,
+                   anonymous,
                    haters,
-                   anonymous
+                   flags
                    )
                );
 

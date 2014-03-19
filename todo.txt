@@ -4,5 +4,7 @@ error check comments (insert/update & values)
 fix anonymous for posts & comments
 then fix errors & thoroughly test!
 bring all the code into continuity
+or..publish users like publishing comments sorta?
+limit error messages to one of a kind
 
 flags should operate like a combination of comments & errors

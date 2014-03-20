@@ -15,6 +15,10 @@ Template.newComment.promptCommentAnonymous = function () {
  * Comment template helpers
  */
 Template.comment.helpers({
+    date: function() {
+        date = moment(this.stamp).fromNow();
+        return date;
+    }
 });
 
 /*
@@ -107,18 +111,18 @@ Template.newComment.events({
             }
             var comment = {
                 postId: this._id,
-                stamp: new Date(),
+                stamp: new Date().getTime(),
                 username: Meteor.user().username,
-                comment: $('.comment-input').val(),
-                anonymous: $('.new-comment-anonymous').val(),
+                comment: $('.comment-input').val().trim(),
+                anonymous: $('input[name=comment-anonymous]:checked').val(),
                 haters: 0,
                 flags: 0
             }
             // Throw in some error checking
             if (comment._id = Comments.insert(comment)) {
-                // Clear form values
-                $(".comment-input").val("");
-                $(".new-comment-anonymous").val("");
+                // Clear form values * clear checkbox not working
+                // Anonymous does not stick after non-anonymous comment :(
+                $(".new-comment-form").find("input[type=checkbox], textarea").val("");
                 // Contract new comment features
                 $(".new-comment-rollover-minus").slideUp("", function() {
                     $(".new-comment-rollover-plus").show();

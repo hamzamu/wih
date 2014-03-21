@@ -25,30 +25,24 @@ Template.newPost.noteReason = function () {
  * Post list template helpers
  */
 Template.postList.helpers({
-    posts: function() {
-        return Posts.find(
-                {},
-                {sort: {stamp: -1}}
-            );
         // return Posts.find(author: author, category: category);
-    }
 });
 
 /*
  * Post template helpers
 */
 Template.post.helpers({
-    ownPost: function(p) {
-        // Use isOwner?
-//        alert(this.userId + "==" + Meteor.userId());
-        if (p.username && Meteor.user().username) {
+    ownPost: function() {
+        p = this.username;
+        u = Meteor.user().username;
+        if (p == u) {
             return true;
         } else {
             return false;
         }
     },
     date: function() {
-        date = this.stamp;
+        date = moment(this.stamp).fromNow();
         return date;
     }
 });
@@ -112,8 +106,8 @@ Template.newPost.events({
     */
     'keypress #new-post-reason': function (e) {
         if (e.which == 13) {
-        $("#new-post-target").focus();
-// no worky!
+            $("#new-post-target").focus();
+// Move submission functions directly into here
             $("#new-post-form").submit(function(e){return false});
         }
     },
@@ -130,12 +124,17 @@ Template.newPost.events({
      */
     'submit': function(e) {
         e.preventDefault();
+        if (!Meteor.user()) {
+            errorThrow("Gotta be logged in, sucka");
+            // Try Meteor.call('loginbuttontogglefunctionname', params);
+            return false;
+        }
         var post = {
-            stamp: new Date(),
+            stamp: new Date().getTime(),
             username: Meteor.user().username,
-            target: $(e.target).find('[name=target]').val(),
-            reason: $(e.target).find('[name=reason]').val(),
-            anonymous: $(e.target).find('[name=anonymous]').val(),
+            target: $(e.target).find('[name=target]').val().trim(),
+            reason: $(e.target).find('[name=reason]').val().trim(),
+            anonymous: $('input[name=anonymous]:checked').val(),
             comments: 0,
             flags: 0,
             haters: 0,
@@ -158,12 +157,20 @@ Template.newPost.events({
         // Prevent page reload
         return false;
     }
+
 });
 
 /*
  * Post list triggers
  */
 Template.postList.events({
+    
+});
+
+/*
+ * Post triggers
+ */
+Template.post.events({
     
     /*
      * Show and hide post flagger
@@ -184,5 +191,16 @@ Template.postList.events({
     'click .post-flag': function (event) {
 
     },
-});
+    /*
+     * Hate on it
+     */
+    'click .hate-it': function (e) {
+        e.preventDefault();
+        Meteor.call ('hatePost', this._id, function (error) {
+            if (error) {
+                errorThrow(error.reason);
+            }
+        });
+    },
 
+});

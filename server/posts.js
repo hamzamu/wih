@@ -5,10 +5,9 @@ Meteor.publish('postsAll', function() {
     return Posts.find();
 });
 
-Meteor.publish('posts', function(author) {
+Meteor.publish('posts', function(options) {
     // Should check user's specific flags in addition to site flagged
-    return Posts.find({
-        });
+    return Posts.find({}, options);
 });
 
 Meteor.publish('postsByAuthor', function(author) {
@@ -35,8 +34,9 @@ Posts.allow({
         // Failure should return error / encourage sign up
         return !! Meteor.user();
     },
-    update: isOwner,
-    update: isAdmin,
+    // This is a hack and should add a check for any logged in
+    // user able to update the comment count by 1 when commenting
+    update: requireLogin,
     remove: false,
 });
 
@@ -47,8 +47,11 @@ Posts.deny({
     // Deny when callback returns true
     // Limit update fields
     update: function (userId, post, fieldNames) {
-        // editable fields list
-        return (_.without(fieldNames, 'target', 'reason').length > 0);
+        // Not allowing owner to click own post
+        if (isOwner (userId, post)) {
+            // editable fields list
+            return (_.without(fieldNames, 'target', 'reason').length > 0);
+        }
     }
 });
 
@@ -83,9 +86,9 @@ Meteor.methods ({
         // comments = 0;
         // haters = 0;
 
-        if (!postValues.user) {
+        if (!Meteor.user()) {
             throw new Meteor.Error (
-                401, "Gotta be logged in, sucka"
+                401, "Nice try, hax0r.  Now login."
             );
         }
 
@@ -127,5 +130,29 @@ Meteor.methods ({
 
         return postId;
 
+    },
+
+    /*
+     * Increment hate count if user is logged in
+     */
+    hatePost: function (idPost) {
+
+        // Check for login
+        if (!Meteor.user()) {
+            throw new Meteor.Error (
+                401, "Nice try, hax0r.  Now login."
+            );
+        }
+        // Should really check to see if post is valid
+        if (!idPost) {
+            throw new Meteor.Error (
+                422, "You must enter a target for your hatred"
+            );
+        }
+        // Increment hate count
+        Posts.update (idPost, {
+            $inc: {haters: 1}
+        });
     }
+
 });

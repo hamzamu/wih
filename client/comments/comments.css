@@ -85,10 +85,15 @@
     font-weight: bold;
     margin: .5em 2em 1em 2em; 
 }
+.comment-edit,
+.comment-hate,
 .comment-stamp {
     float: left;
     font-size: .8em;
     margin: .25em 1em; 
     position: relative;
     top: -.1em;
+}
+.comment-hate {
+    float: none;
 }

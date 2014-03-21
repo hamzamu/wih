@@ -4,12 +4,12 @@
             <div class="post-meta">
                 <div class="post-stamp">
                     <a href="{{pathFor 'postPage'}}">
-                        {{stamp}}
+                        {{date}}
                     </a>
                 </div>
                 {{#if ownPost}}
                     <div class="post-edit">
-                        Edit
+                        <a href="#">Edit</a>
                     </div>
                 {{/if}}
                 <div class="post-flag">
@@ -17,7 +17,12 @@
                 </div>
             </div>
             <p class="post">
-                {{username}} {{action}}
+                {{#if anonymous}}
+                    Anonymous user
+                {{else}}
+                    {{username}} 
+                {{/if}}
+                {{action}}
                 <span class="post-target">{{target}}</span> 
                 {{conjunction}}
                 <span class="post-reason">{{reason}}</span> 
@@ -26,12 +31,20 @@
                 <a href="#" title="Show haters">
                     {{haters}} people hate this
                 </a>
+                ::
+                <a href="#" title="Show haters">
+                    {{comments}} people ragged on it
+                </a>
             </p>
         </div>
         <div class="post-social">
             <ul>
                 <li>
-                    <a href="#">Hate on it</a>
+                    {{#if ownPost}}
+                        Hate on it
+                    {{else}}
+                        <a class="hate-it" href="#">Hate on it</a>
+                    {{/if}}
                 </li>
                 <li>
                     <a href="#">Like it</a>
@@ -40,6 +53,7 @@
                     <a href="#">Plus it</a>
                 </li>
                 <li>
+                    {{!-- Should open comments / new commenter --}}
                     <a href="#">Rag on it</a>
                 </li>
                 <li>

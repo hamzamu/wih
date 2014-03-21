@@ -20,5 +20,7 @@ onclick post div expands comments?
 pathFor links for user names & most popular words
 search
 expand comments by default on single post page
+use Deps.autorun(function(){//find or session)}) on settings collection/title/etc
+require user intervention before inserting new posts (twitter style?)
 
 flags should operate like a combination of comments & errors

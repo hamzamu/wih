@@ -10,9 +10,15 @@
     font-size: 1.4em;
     text-align: center;
 }
+#new-post-rollover-plus:hover {
+    color: gold;
+}
 #new-post-rollover-minus {
-    background-color: lightgreen;
+    background-color: green;
     display: none;
+}
+#new-post-rollover-minus:hover {
+    color: gold;
 }
 #new-post-form {
     display: none;
@@ -63,6 +69,7 @@
     width: 80%;
 }
 .post-social li {
+    color: #755;
     display: inline;
     margin: .2em 1em;
 }
@@ -75,7 +82,11 @@
 .post-meta {
     height: 1.8em
 }
+.post-favorite,
+.post-flag,
+.post-edit,
 .post-stamp {
+    color: white;
     float: left;
     font-size: .8em;
     margin: .25em 1em; 
@@ -85,10 +96,14 @@
 .post-flag {
     display: none;
     float: right;
-    font-size: 1em;
     margin: .25em 1em; 
     position: relative;
     top: -.2em;
+}
+.post-edit:hover,
+.post-favorite:hover,
+.post-flag:hover {
+    color: gold;
 }
 .post {
     clear: both;
@@ -109,10 +124,27 @@
     font-size: .8em;
     margin: .25em 1em; 
 }
+.post-hates a,
+.post-stamp a {
+    color: white;
+}
 .post-social {
     background-color: #877;
     font-weight: bold;
     font-size: .9em;
     height: 20px;
     text-align: center;
+}
+#posts-load-more {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    font-size: 1.4em;
+    text-align: center;
+}
+#posts-load-more:hover {
+    background-color: #f55;
+}
+#posts-load-more a {
+    color: white;
 }

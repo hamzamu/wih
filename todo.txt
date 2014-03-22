@@ -1,26 +1,41 @@
-manual inserts are not producing the same results as automated ones
-error check comments (insert/update & values)
-fix anonymous for posts & comments
-then fix errors & thoroughly test!
-bring all the code into continuity
-limit error messages to one of a kind
-stats needs publish moved to server
-insure unique usernames
-beer me should link to page w/flattr, bitpay, & paypal
-move error strings & others out
-remove login errors upon login
-increment post & comment counters (for stats & etc as well)
-fix anonymous
-stamp the likes and put them in comment stream
-only pull out necessary comments
-try associating data in the data context area in router!
-try also the way i previously did it but resetting the cursor!
-give expander/contractors a rollover state
-onclick post div expands comments?
-pathFor links for user names & most popular words
-search
-expand comments by default on single post page
-use Deps.autorun(function(){//find or session)}) on settings collection/title/etc
-require user intervention before inserting new posts (twitter style?)
+NEED TO LAUNCH
 
-flags should operate like a combination of comments & errors
+    easy
+        beer me should link to page w/flattr, bitpay, & paypal
+        expand comments by default on single post page
+        move error strings & others out
+        remove login errors upon login
+        sterilize source
+        stats
+
+    medium
+        only pull out necessary comments
+        flags should operate like a combination of comments & errors
+        vote collection
+        stamp the likes and put them in comment stream
+        notifications
+        use Deps.autorun(function(){//find or session)}) on settings collection/title/etc
+
+    hard
+        check fix anonymous
+
+
+DON'T NEED TO LAUNCH
+allow non-logged in users to hate on it
+limit post/comment time reasonably
+prevent dupe hating
+unsure unique usernames
+posts could check if comments exist so as to not depend
+error check comments (insert/update & values)
+pathFor links for user names & most popular words
+bring all the code into continuity
+require user intervention before inserting new posts (twitter style?)
+search
+try also the way i previously did it but resetting the cursor!
+try associating data in the data context area in router!
+
+
+
+
+
+single post page is broken

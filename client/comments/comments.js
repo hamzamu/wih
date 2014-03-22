@@ -1,6 +1,3 @@
-// This needs to be more selective
-Meteor.subscribe('comments');
-
 Template.newComment.promptComment = function () {
     return "Why u hatin':";
 };
@@ -15,6 +12,15 @@ Template.newComment.promptCommentAnonymous = function () {
  * Comment template helpers
  */
 Template.comment.helpers({
+    ownComment: function() {
+        c = this.username;
+        u = Meteor.user().username;
+        if (c == u) {
+            return true;
+        } else {
+            return false;
+        }
+    },
     date: function() {
         date = moment(this.stamp).fromNow();
         return date;
@@ -26,10 +32,11 @@ Template.comment.helpers({
  */
 Template.comments.helpers({
     comments: function() {
-        return Comments.find(
+        postComments = Comments.find(
                 {postId: this._id},
                 {sort: {stamp: -1}}
             );
+        return postComments;
     },
 });
 
@@ -102,6 +109,7 @@ Template.newComment.events({
             // Trigger login/signup box if not logged in
             if (!Meteor.user()) {
                 errorThrow("Gotta be logged in ta comment, mannngggzzz");
+                // Tried Meteor.call...
                 /*
                 Accounts.ui.loginButtonsSession.set('dropdownVisible', true);                                                                // 8
                 Deps.flush();                                                                                                    // 9
@@ -128,12 +136,10 @@ Template.newComment.events({
                     $(".new-comment-rollover-plus").show();
                 });
                 $(".new-comment-form").slideUp("slow");
-                // Update comment count
-                // Create notification for post owner
             }
         } else if (e.which === 27) {
 // no worky
-alert('enter');
+alert('escape');
             /*
              * Close new comment form when Esc key is pressed
              */
@@ -178,4 +184,15 @@ Template.comments.events({
     'click .comment-flag': function (event) {
 
     },
+    /*
+     * Hate on it
+     */
+    'click .hate-comment': function (e) {
+        e.preventDefault();
+        Meteor.call ('hateComment', this._id, function (error) {
+            if (error) {
+                errorThrow(error.reason);
+            }
+        });
+    }
 });

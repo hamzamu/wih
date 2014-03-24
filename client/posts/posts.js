@@ -18,14 +18,13 @@ Template.newPost.noteTarget = function () {
     return "This will be your tweet..when that feature is available >:o";
 };
 Template.newPost.noteReason = function () {
-    return "Smack return to submit";
+    return "Smack return to submit.  In fact, do it twice cuz there's a fucking bug.  Deal with it.";
 };
 
 /*
  * Post list template helpers
  */
 Template.postList.helpers({
-        // return Posts.find(author: author, category: category);
 });
 
 /*
@@ -33,6 +32,7 @@ Template.postList.helpers({
 */
 Template.post.helpers({
     ownPost: function() {
+        if (!Meteor.user()) return false;
         p = this.username;
         u = Meteor.user().username;
         if (p == u) {
@@ -49,10 +49,6 @@ Template.post.helpers({
 
 /*
  * Edit in place by converting values to inputs
- */
-
-/*
- * Use Posts.update(id, {$set: props}, function(error){}
  */
 
 /*
@@ -148,6 +144,7 @@ Template.newPost.events({
             } else {
                 // Should be only on success
                 $("#new-post-form").find("input[type=text], textarea").val("");
+                // Maybe delay this briefly
                 $("#new-post-rollover-minus").slideUp("", function() {
                     $("#new-post-rollover-plus").show();
                 });
@@ -165,6 +162,12 @@ Template.newPost.events({
  */
 Template.postList.events({
     
+/*
+     * Make load more div clickable
+    'click #posts-load-more': function (event) {
+    },
+ */
+
 });
 
 /*
@@ -192,15 +195,63 @@ Template.post.events({
 
     },
     /*
+     * Edit post
+     */
+    'click .post-edit': function (event) {
+
+    },
+    /*
+     * Favorite post
+     */
+    'click .post-favorite': function (event) {
+
+    },
+    /*
+     * Expand & contract comment triggers
+     */
+    'click .comment-contractor': function (event) {
+        $(event.currentTarget).hide();
+        $(event.currentTarget).siblings(".comment-expander").show();
+        $(event.currentTarget).parent().parent().children(".post-comments").children(".comments-container").slideUp("slow");
+    },
+    'click .comment-expander': function (event) {
+        $(event.currentTarget).hide();
+        $(event.currentTarget).siblings(".comment-contractor").show();
+        $(event.currentTarget).parent().parent().children(".post-comments").children(".comments-container").slideDown("slow");
+        /*
+            Need to shut all other comment containers
+            either here or when expanding another comment
+            or all new comment containers here or below
+
+            $(event.currentTarget).parent().siblings.each
+                $(event.currentTarget).siblings(".comments-container").slideDown("slow");
+        */
+
+        /*
+         * Load comments on first expansion
+         */
+    },
+    /*
      * Hate on it
      */
-    'click .hate-it': function (e) {
-        e.preventDefault();
+    'click .hate-on-it': function (e) {
         Meteor.call ('hatePost', this._id, function (error) {
             if (error) {
                 errorThrow(error.reason);
             }
         });
     },
+    /*
+     * Tweet it
+     */
+    //'click .twitter-share-button': function(d,s,id) {
+        //var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+        //if(!d.getElementById(id)){
+            //js=d.createElement(s);
+            //js.id=id;
+            //js.src=p+'://platform.twitter.com/widgets.js';
+            //fjs.parentNode.insertBefore(js,fjs);
+        //}}(document, 'script', 'twitter-wjs');
+    //},
 
 });

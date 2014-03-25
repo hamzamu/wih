@@ -2,18 +2,24 @@
     <div class="post-container">
         <div class="post-flag-container">
             <div class="post-meta">
-                <div class="post-stamp">
-                    <a href="{{pathFor 'postPage'}}">
-                        {{date}}
+                <div class="post-link">
+                    <a title="Just peep this bitch" href="{{pathFor 'postPage'}}">
+                        <span class="glyphicon glyphicon-link"></span>
                     </a>
+                </div>
+                <div class="post-stamp">
+                    <span title="{{date}}" class="glyphicon glyphicon-time"></span>
+                </div>
+                <div class="post-favorite">
+                    <span title="Favorite this" class="glyphicon glyphicon-star"></span>
                 </div>
                 {{#if ownPost}}
                     <div class="post-edit">
-                        <a href="#">Edit</a>
+                        <span title="Edit this" class="glyphicon glyphicon-edit"></span>
                     </div>
                 {{/if}}
                 <div class="post-flag">
-                    &times;
+                        <span title="Fuck this" class="glyphicon glyphicon-trash"></span>
                 </div>
             </div>
             <p class="post">
@@ -29,35 +35,27 @@
             </p>
             <p class="post-hates">
                 <a href="#" title="Show haters">
-                    {{haters}} people hate this
-                </a>
-                ::
-                <a href="#" title="Show haters">
                     {{comments}} people ragged on it
                 </a>
             </p>
         </div>
         <div class="post-social">
+            <div class="comment-contractor">
+                <span title="Hide rags" class="btn-sm glyphicon glyphicon-circle-arrow-up"></span>
+            </div>
+            <div class="comment-expander">
+                <span title="Show rags" class="btn-sm glyphicon glyphicon-circle-arrow-down"></span>
+            </div>
             <ul>
                 <li>
-                    {{#if ownPost}}
-                        Hate on it
-                    {{else}}
-                        <a class="hate-it" href="#">Hate on it</a>
-                    {{/if}}
+                    <button class="btn btn-danger btn-xs hate-on-it" type="button" 
+                        {{#if ownPost}} disabled="disabled"{{/if}}>
+                      <span class="badge pull-right">{{haters}}</span>
+                      Hate on it
+                    </button>
                 </li>
                 <li>
-                    <a href="#">Like it</a>
-                </li>
-                <li>
-                    <a href="#">Plus it</a>
-                </li>
-                <li>
-                    {{!-- Should open comments / new commenter --}}
-                    <a href="#">Rag on it</a>
-                </li>
-                <li>
-                    <a href="#">Tweet it</a>
+                    <div class="share-button"></div>
                 </li>
             </ul>
         </div>

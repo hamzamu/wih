@@ -3,30 +3,27 @@
     display: none;
 }
 .comment-container {
-    border-bottom: 1px solid #877;
 }
 .comment-contractor {
     display: none;
 }
 .comment-contractor,
 .comment-expander {
-    background-color: #722;
+    background-color: #522;
     color: white;
+    cursor: pointer;
     float: left;
     font-weight: bold;
     height: 1.7em;
-    padding-right: .4em;
-    cursor: pointer;
-    width: 6.5em;
+    padding-top: .1em;
+    text-align: center;
+    width: 5em;
 }
 .comment-contractor:hover,
 .comment-expander:hover {
-    color: gold
 }
 .comment-contractor span,
 .comment-expander span {
-    position: relative;
-    top: -1px;
 }
 .new-comment-rollover-minus,
 .new-comment-rollover-plus {
@@ -90,6 +87,12 @@
     bottom: .25em;
     position: relative;
 }
+.comment-stamp {
+    color: white;
+    float: left;
+    font-size: .8em;
+    margin: .5em 1em; 
+}
 .comment-flag {
     display: none;
 }
@@ -108,8 +111,7 @@
     margin: .5em 2em 1em 2em; 
 }
 .comment-edit,
-.comment-hate,
-.comment-stamp {
+.comment-hate {
     float: left;
     font-size: .8em;
     margin: .25em 1em; 
@@ -117,5 +119,13 @@
     top: -.1em;
 }
 .comment-hate {
+    border: 0 none;
     float: none;
+}
+.comment-hate button {
+    background-color: #722;
+    border: 0 none;
+    cursor: pointer;
+    height: 1.7em;
+    float: left;
 }

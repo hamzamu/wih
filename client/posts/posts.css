@@ -63,16 +63,6 @@
 #posts-container {
     padding-bottom: 1em; 
 }
-.post-social ul {
-    list-style: none;
-    margin: .2em auto;
-    width: 80%;
-}
-.post-social li {
-    color: #755;
-    display: inline;
-    margin: .2em 1em;
-}
 .post-container {
     background-color: #baa;
     border: 1px solid black;
@@ -80,16 +70,18 @@
     width: 80%;
 }
 .post-meta {
-    height: 1.8em
+    background-color: #877;
+    height: 1.6em
 }
 .post-favorite,
+.post-link,
 .post-flag,
 .post-edit,
 .post-stamp {
     color: white;
     float: left;
     font-size: .8em;
-    margin: .25em 1em; 
+    margin: .25em .4em; 
     position: relative;
     top: -.1em;
 }
@@ -102,6 +94,7 @@
 }
 .post-edit:hover,
 .post-favorite:hover,
+.post-link:hover,
 .post-flag:hover {
     color: gold;
 }
@@ -132,8 +125,7 @@
     background-color: #877;
     font-weight: bold;
     font-size: .9em;
-    height: 20px;
-    text-align: center;
+    height: 1.7em;
 }
 #posts-load-more {
     background-color: red;
@@ -143,8 +135,45 @@
     text-align: center;
 }
 #posts-load-more:hover {
-    background-color: #f55;
+    color: gold;
 }
 #posts-load-more a {
     color: white;
+}
+.twitter-share-button,
+.fb-like {
+    clear: none;
+    float: right;
+    width: 150px;
+}
+.g-plusone {
+    float: right;
+    clear: none;
+}
+.post-share-hate button {
+    background-color: #722;
+    border: 0 none;
+    cursor: pointer;
+    height: 1.7em;
+    float: left;
+}
+.share-dis,
+.hate-on-it {
+    color: white;
+}
+.share-dis:hover,
+.hate-on-it:hover {
+    color: gold;
+}
+.hate-on-it {
+    width: 6em; 
+}
+.share-dis {
+    position: relative;
+    text-align: center;
+    width: 4em; 
+}
+.show-rags {
+    position: relative;
+    right: .1em;
 }

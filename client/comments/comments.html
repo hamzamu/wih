@@ -1,12 +1,6 @@
 <template name="comments">
 
     <div class="post-comments">
-        <div class="comment-contractor">
-            Hide the haters
-        </div>
-        <div class="comment-expander">
-            Show the haters
-        </div>
         <div class="comments-container">
             {{> newComment}}
             {{#each comments}}
@@ -20,27 +14,40 @@
 <template name="comment">
 
     <div class="comment-container">
+        <div class="comment-stamp">
+            {{date}}
+        </div>
+        {{#if ownComment}}
+            <div class="post-edit">
+                <span title="Edit this" class="glyphicon glyphicon-edit"></span>
+            </div>
+        {{/if}}
         <div class="comment-flag-holder">
         </div>
         <div class="comment-flag">
             &times;
         </div>
         <p class="comment">
-            {{username}}
+            {{#if anonymous}}
+                Anonymous user
+            {{else}}
+                {{username}} 
+            {{/if}}
             sayz
             {{comment}}
         </p>
-        <div class="comment-stamp">
-            {{stamp}}
-        </div>
-        <div class="comment-hate">
-            {{#if haters}}
-                {{haters}} users
-                <a href="#" class="hate-on-it">hate on it</a>
+        <p class="comment-hate">
+            {{#if ownComment}}
+                {{haters}} users hate on it
             {{else}}
-                <a href="#" class="hate-on-it">Hate on it</a>
+                {{#if haters}}
+                    {{haters}} users
+                    <a href="#" class="hate-comment">hate on it</a>
+                {{else}}
+                    <a href="#" class="hate-comment">Hate on it</a>
+                {{/if}}
             {{/if}}
-        </div>
+        </p>
     </div>
 
 </template>

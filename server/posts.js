@@ -5,6 +5,11 @@ Meteor.publish('postsAll', function() {
     return Posts.find();
 });
 
+Meteor.publish('postSingle', function(id) {
+    // Should check user's specific flags in addition to site flagged
+    return Posts.find({_id: id});
+});
+
 Meteor.publish('posts', function(options) {
     // Should check user's specific flags in addition to site flagged
     return Posts.find({}, options);
@@ -34,9 +39,10 @@ Posts.allow({
         // Failure should return error / encourage sign up
         return !! Meteor.user();
     },
-    // This is a hack and should add a check for any logged in
-    // user able to update the comment count by 1 when commenting
-    update: requireLogin,
+    // User able to update the comment count by 1 when commenting
+    update: function () {
+        if (Meteor.user()) return true;
+    },
     remove: false,
 });
 
@@ -46,13 +52,19 @@ Posts.allow({
 Posts.deny({
     // Deny when callback returns true
     // Limit update fields
-    update: function (userId, post, fieldNames) {
-        // Not allowing owner to click own post
-        if (isOwner (userId, post)) {
-            // editable fields list
-            return (_.without(fieldNames, 'target', 'reason').length > 0);
-        }
-    }
+    // This is block comment count updates no matter what i do :(
+    /*
+     *update: function (id, post, fieldNames) {
+     *    // Not allowing owner to click own post
+     *    if (isOwner (id, post)) {
+     *        // editable fields list
+     *        return (_.without(fieldNames, 'target', 'reason').length > 0);
+     *    } else {
+     *        // updating comments, called from server upon successful insert
+     *        return post;
+     *    }
+     *}
+     */
 });
 
 /*
@@ -137,18 +149,22 @@ Meteor.methods ({
      */
     hatePost: function (idPost) {
 
-        // Check for login
-        if (!Meteor.user()) {
-            throw new Meteor.Error (
-                401, "Nice try, hax0r.  Now login."
-            );
-        }
+        /* Allow non-logged in users.. 
+            // Check for login
+            if (!Meteor.user()) {
+                throw new Meteor.Error (
+                    401, "Nice try, hax0r.  Now login."
+                );
+            }
+        */
         // Should really check to see if post is valid
         if (!idPost) {
             throw new Meteor.Error (
                 422, "You must enter a target for your hatred"
             );
         }
+        // Check user has not voted before
+
         // Increment hate count
         Posts.update (idPost, {
             $inc: {haters: 1}

@@ -1,31 +1,33 @@
-// Template Variables
-Template.post.action = function () {
-    return "hates";
-};
-Template.post.conjunction = function () {
-    return "because";
-};
-Template.newPost.promptTarget = function () {
-    return "What I hate is:";
-};
-Template.newPost.promptReason = function () {
-    return "because:";
-};
-Template.newPost.promptAnonymous = function () {
-    return "Post anonymously?";
-};
-Template.newPost.noteTarget = function () {
-    return "This will be your tweet..when that feature is available >:o";
-};
-Template.newPost.noteReason = function () {
-    return "Smack return to submit.  In fact, do it twice cuz there's a fucking bug.  Deal with it.";
-};
+Template.postNew.created = function() {
 
-/*
- * Post list template helpers
- */
-Template.postList.helpers({
-});
+    // Template variables
+    Template.postNew.promptTarget = function () {
+        return "What I hate is:";
+    };
+    Template.postNew.promptReason = function () {
+        return "because:";
+    };
+    Template.postNew.promptAnonymous = function () {
+        return "Post anonymously?";
+    };
+    Template.postNew.noteTarget = function () {
+        return "This will be your tweet..when that feature is available >:o";
+    };
+    Template.postNew.noteReason = function () {
+        return "Smack return to submit.  In fact, do it twice cuz there's a fucking bug.  Deal with it.";
+    };
+
+}
+
+Template.post.created = function () {
+    // Template Variables
+    this.data.action = function () {
+        return "hates";
+    };
+    this.data.conjunction = function () {
+        return "because";
+    };
+};
 
 /*
  * Post template helpers
@@ -44,7 +46,7 @@ Template.post.helpers({
     date: function() {
         date = moment(this.stamp).fromNow();
         return date;
-    }
+    },
 });
 
 /*
@@ -54,7 +56,7 @@ Template.post.helpers({
 /*
  * New post triggers
  */
-Template.newPost.events({
+Template.postNew.events({
 
     /*
      * Contract container when clicking minus sign div
@@ -162,11 +164,9 @@ Template.newPost.events({
  */
 Template.postList.events({
     
-/*
-     * Make load more div clickable
     'click #posts-load-more': function (event) {
+        Router.go(this.nextPath);
     },
- */
 
 });
 
@@ -175,6 +175,24 @@ Template.postList.events({
  */
 Template.post.events({
     
+    /*
+     * Load single post
+    'click .post-link': function (event) {
+        Router.go('postPage', {_id: this._id});
+    },
+     */
+    /*
+     * Favorite post
+     */
+    'click .post-favorite': function (event) {
+
+    },
+    /*
+     * Edit post
+     */
+    'click .post-edit': function (event) {
+
+    },
     /*
      * Show and hide post flagger
      */
@@ -192,18 +210,6 @@ Template.post.events({
      *
      */
     'click .post-flag': function (event) {
-
-    },
-    /*
-     * Edit post
-     */
-    'click .post-edit': function (event) {
-
-    },
-    /*
-     * Favorite post
-     */
-    'click .post-favorite': function (event) {
 
     },
     /*
@@ -255,3 +261,74 @@ Template.post.events({
     //},
 
 });
+
+/*
+ * Run each time a post template is rendered
+ */
+Template.post.rendered = function () {
+    
+    // This is breaking new post toggle..possibly cuz of share button
+    /*
+     * for some reason getting this to fire is tricky
+     * ie; buggy.. also, not getting the route properly :(
+     *
+        Router.go('postPage', {_id: this._id});
+    if (this.rendered) return; // should keep it from rendering when comments load
+    // Might need to figure out how to prevent this running
+    // when new comments are inserted
+    if (!this.rendered) {
+        var app_id_fb = '826657674016552';
+        var background = '#800';
+        var color = '#fff';
+        var id = this.data._id;
+        var image = ''; // make something!
+        var reason = this.data.reason;
+        var target = this.data.target;
+        var title = "What I Hate...";
+        var text = this.data.username
+            + ' '
+            + this.data.action()
+            + ' '
+            + target
+            + ' '
+            + this.data.conjunction()
+            + '.. '
+            + 'http://shortlink';
+        var text_twitter = text + ' #whatihate @whatuhatin';
+        var url = Router.routes['postPage'].path({_id: id});
+        
+        config = {
+            url: url,
+            title: title,
+            text: text,
+            image: image, 
+            button_background: background,
+            button_color: color,
+            networks: {
+                google_plus: {
+                    enabled: true,
+                },
+                twitter: {
+                    enabled: true,
+                    text: text_twitter,
+                },
+                facebook: {
+                    enabled: true,
+                    app_id: app_id_fb,
+                },
+            },
+        };
+        new Share('.share-button', config);
+    }
+    */
+    /*
+     * Fix for iron-router if needed after using back button from fb
+    Template.post.rendered = function() {
+        try {
+            FB.XFBML.parse();
+        }catch(e) {}   
+    };
+     */
+
+};
+

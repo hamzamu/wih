@@ -1,3 +1,6 @@
+// This needs to be more selective
+Meteor.subscribe('comments');
+
 Template.newComment.promptComment = function () {
     return "Why u hatin':";
 };
@@ -13,6 +16,7 @@ Template.newComment.promptCommentAnonymous = function () {
  */
 Template.comment.helpers({
     ownComment: function() {
+        if (!Meteor.user()) return false;
         c = this.username;
         u = Meteor.user().username;
         if (c == u) {
@@ -44,31 +48,6 @@ Template.comments.helpers({
  * Comment list triggers
  */
 Template.comments.events({
-    /*
-     * Expand & contract comment triggers
-     */
-    'click .comment-contractor': function (event) {
-        $(event.currentTarget).hide();
-        $(event.currentTarget).siblings(".comment-expander").show();
-        $(event.currentTarget).siblings(".comments-container").slideUp("slow");
-    },
-    'click .comment-expander': function (event) {
-        $(event.currentTarget).hide();
-        $(event.currentTarget).siblings(".comment-contractor").show();
-        $(event.currentTarget).siblings(".comments-container").slideDown("slow");
-        /*
-            Need to shut all other comment containers
-            either here or when expanding another comment
-            or all new comment containers here or below
-
-            $(event.currentTarget).parent().siblings.each
-                $(event.currentTarget).siblings(".comments-container").slideDown("slow");
-        */
-
-        /*
-         * Load comments on first expansion
-         */
-    },
 });
 
 
@@ -131,15 +110,24 @@ Template.newComment.events({
                 // Clear form values * clear checkbox not working
                 // Anonymous does not stick after non-anonymous comment :(
                 $(".new-comment-form").find("input[type=checkbox], textarea").val("");
-                // Contract new comment features
-                $(".new-comment-rollover-minus").slideUp("", function() {
-                    $(".new-comment-rollover-plus").show();
-                });
+                /*
+                 * Keeping it open allows more discussion like commenting
+                 * // Contract new comment features
+                 * $(".new-comment-rollover-minus").slideUp("", function() {
+                 *     $(".new-comment-rollover-plus").show();
+                 * });
+                 */
                 $(".new-comment-form").slideUp("slow");
+                // Update comment count
+                // Increment comment count
+                Posts.update (comment.postId, {
+                    $inc: {comments: 1}
+                });
+                // Create notification for post owner
             }
         } else if (e.which === 27) {
 // no worky
-alert('escape');
+alert('enter');
             /*
              * Close new comment form when Esc key is pressed
              */
@@ -191,7 +179,7 @@ Template.comments.events({
         e.preventDefault();
         Meteor.call ('hateComment', this._id, function (error) {
             if (error) {
-                errorThrow(error.reason);
+               errorThrow(error.reason);
             }
         });
     }

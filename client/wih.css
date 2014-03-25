@@ -59,4 +59,9 @@ a {
     display: inline;
     margin: .2em 1em;
 }
-
+#site-footer span {
+    color: white;
+}
+#site-footer span:hover {
+    color: gold;
+}

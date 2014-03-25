@@ -14,7 +14,6 @@ Meteor.methods ({
      * Remove single error that has been flagged as viewed
      */
     errorClear: function() {
-        console.log("trying: " + this._id);
         alert("trying: " + this._id);
         Errors.update(this._id, {$set: {seen: true}});
     },

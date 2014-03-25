@@ -1,11 +1,15 @@
 /*
  * Comment publications
  */
-Meteor.publish('comments', function(c) {
+Meteor.publish('comments', function(id) {
     
     // Only comments for posts appearing on page should be published
     // return Comments.find({}, {limit: 10});
-    return Comments.find({});
+    if (id) {
+        return Comments.find({_id: id});
+    } else {
+        return Comments.find();
+    }
 
 });
 
@@ -18,8 +22,8 @@ Comments.allow({
         // Only for logged in users
         return !! Meteor.user();
     },
-    update: isOwner,
-    update: isAdmin,
+    // Use underscore to add a test for non logged in user voting (allow)
+    update: requireLogin,
     remove: false,
 
 });
@@ -33,7 +37,7 @@ Comments.deny({
     update: function (userId, post, fieldNames) {
         // editable fields list
         return (_.without(fieldNames, 'comment').length > 0);
-    }
+    },
 });
 
 /*
@@ -71,9 +75,9 @@ Meteor.methods ({
         var flags = 0;
         */
 
-        if (!user) {
+        if (!Meteor.user()) {
             throw new Meteor.Error (
-                401, "Gotta be logged in, sucka"
+                401, "Aren't j00 slick b1tzy, try loggin' in"
             );
         }
 
@@ -83,12 +87,6 @@ Meteor.methods ({
             );
         }
 
-        if (commentValues.anonymous) {
-            commentAnonymous = true;
-        }
-
-        // Find dupes
-        // throw 302 & go to comment / use find/count
 
         // Explain.
         var comment = _.extend(
@@ -103,11 +101,38 @@ Meteor.methods ({
                    flags
                    )
                );
-
         var commentId = Comments.insert(comment);
+        if (commentId) {
+            // Increment post comment count, extra one is a security check
+            Posts.update(postId, '', {$inc: {comments: 1}});
+            // Create notification
+            // Set time until user can post again
+        }
 
         return commentId;
 
+    },
+    /*
+     * Increment hate count if user is logged in
+     */
+    hateComment: function (idComment) {
+
+        // Check for login
+        if (!Meteor.user()) {
+            throw new Meteor.Error (
+                401, "Nice try, hax0r.  Now login."
+            );
+        }
+        // Should really check to see if post is valid
+        if (!idComment) {
+            throw new Meteor.Error (
+                422, "You must enter a target for your hatred"
+            );
+        }
+        // Increment hate count
+        Comments.update (idComment, {
+            $inc: {haters: 1}
+        });
     }
 
 });

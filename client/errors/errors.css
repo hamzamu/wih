@@ -1,3 +1,7 @@
-#site-messages {
-    display: block;
+#errors {
+    margin: .8em auto;
+    max-width: 720px;
+}
+.alert {
+    padding: .25em 1em;
 }

@@ -2,14 +2,25 @@ NEED TO LAUNCH
 
     easy
         beer me should link to page w/flattr, bitpay, & paypal
+        log voter ips and check against votes
+        fix routing issue on for share button, it's almost done!
+        shortlinks
+        need to limit target & reason!
         expand comments by default on single post page
         move error strings & others out
+        error check errors
+        fix comment triggers to use ids instead of classes smarty pants
         remove login errors upon login
         sterilize source
         stats
+        meteor headers
 
     medium
+        make language filter my first package
+        apply racial slur filter to all posts & comments
+        apply language filter b4 posting to SM
         only pull out necessary comments
+        log user ips
         flags should operate like a combination of comments & errors
         vote collection
         stamp the likes and put them in comment stream
@@ -23,9 +34,11 @@ NEED TO LAUNCH
 DON'T NEED TO LAUNCH
 allow non-logged in users to hate on it
 limit post/comment time reasonably
+pinger
 prevent dupe hating
 unsure unique usernames
 posts could check if comments exist so as to not depend
+geoip visitor ips
 error check comments (insert/update & values)
 pathFor links for user names & most popular words
 bring all the code into continuity
@@ -39,3 +52,8 @@ try associating data in the data context area in router!
 
 
 single post page is broken
+
+
+make site or something for lscp
+and quick dom/dom info to book
+cut to the chase by putting in a chapter on planning

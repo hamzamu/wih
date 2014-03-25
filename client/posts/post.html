@@ -42,22 +42,23 @@
         <div class="post-social">
             <div class="comment-contractor">
                 <span title="Hide rags" class="btn-sm glyphicon glyphicon-circle-arrow-up"></span>
+                <span title="Hide rags" class="badge show-rags">{{comments}}</span>
             </div>
             <div class="comment-expander">
                 <span title="Show rags" class="btn-sm glyphicon glyphicon-circle-arrow-down"></span>
+                <span title="Show rags" class="badge show-rags">{{comments}}</span>
             </div>
-            <ul>
-                <li>
-                    <button class="btn btn-danger btn-xs hate-on-it" type="button" 
+            <div class="post-share-hate">
+                <button class="hate-on-it" type="button" 
                         {{#if ownPost}} disabled="disabled"{{/if}}>
-                      <span class="badge pull-right">{{haters}}</span>
-                      Hate on it
-                    </button>
-                </li>
-                <li>
-                    <div class="share-button"></div>
-                </li>
-            </ul>
+                    <span title="Hate on it" class="badge pull-right">{{haters}}</span>
+                    <span title="Hate on it" class="glyphicon glyphicon-thumbs-down"></span>
+                </button>
+                {{!-- <div class="share-button"></div> --}}
+                <button class="share-dis" type="button">
+                    <span title="Share dis hurr" class="glyphicon glyphicon-send"></span>
+                </button>
+            </div>
         </div>
         {{> comments}}
     </div>

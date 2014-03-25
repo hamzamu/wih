@@ -10,12 +10,15 @@ accounts-base
 accounts-facebook
 accounts-twitter
 accounts-google
-bootstrap
 iron-router
 jquery-ui
 spin
-accounts-ui
 accounts-password
 email
 iron-router-progress
 smart-publish
+moment
+Bootstrap3-Typeahead
+managedUsers-2
+pnotify-bootstrap-3
+spiderable

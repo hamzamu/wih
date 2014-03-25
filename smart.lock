@@ -5,7 +5,12 @@
       "jquery-ui": {},
       "spin": {},
       "iron-router-progress": {},
-      "smart-publish": {}
+      "smart-publish": {},
+      "moment": {},
+      "Bootstrap-Validator": {},
+      "Bootstrap3-Typeahead": {},
+      "managedUsers-2": {},
+      "pnotify-bootstrap-3": {}
     },
     "packages": {
       "jquery-ui": {
@@ -28,10 +33,40 @@
         "tag": "v0.1.4",
         "commit": "9b0279927fa4f8042f8f56ba475ce9737ceaa8cf"
       },
+      "moment": {
+        "git": "https://github.com/acreeger/meteor-moment.git",
+        "tag": "v2.5.1",
+        "commit": "8c9bc5d3fc96705057737cb9743d555417f6e551"
+      },
+      "Bootstrap-Validator": {
+        "git": "https://github.com/aashuagg/Bootstrap-Validator.git",
+        "tag": "v0.0.1",
+        "commit": "3e4f9808d86e55315afee4b16080eac991bf8fa4"
+      },
+      "Bootstrap3-Typeahead": {
+        "git": "https://github.com/JustinSGray/meteor-Bootstrap-3-Typeahead.git",
+        "tag": "v3.0.3",
+        "commit": "1438ed827fc3ca16c9ae04062c1122002151c7d6"
+      },
+      "managedUsers-2": {
+        "git": "https://github.com/adityamukho/managedUsers.git",
+        "tag": "v0.2.4",
+        "commit": "14bbd5665fa20f2b6708953a89cf1a4972454062"
+      },
+      "pnotify-bootstrap-3": {
+        "git": "https://github.com/emdagon/meteor-pnotify-bootstrap-3.git",
+        "tag": "v0.1.1",
+        "commit": "023f3d92803dd9ae9f244dc4f086cd57ddf013e4"
+      },
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
         "tag": "v0.6.4",
         "commit": "927bbaed1b87894fb6fb70807f74ff3a5bd89f29"
+      },
+      "bootstrap-3": {
+        "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
+        "tag": "v0.3.4",
+        "commit": "680c056e849d079a1b669247f347da2b443aad91"
       }
     }
   }

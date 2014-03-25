@@ -3,6 +3,11 @@
     "jquery-ui": {},
     "spin": {},
     "iron-router-progress": {},
-    "smart-publish": {}
+    "smart-publish": {},
+    "moment": {},
+    "Bootstrap-Validator": {},
+    "Bootstrap3-Typeahead": {},
+    "managedUsers-2": {},
+    "pnotify-bootstrap-3": {}
   }
 }

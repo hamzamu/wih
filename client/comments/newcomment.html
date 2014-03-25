@@ -1,10 +1,10 @@
 <template name="newComment">
 
     <div class="new-comment-rollover-minus">
-        -
+        <span title="Quit ur bitchin'" class="btn-sm glyphicon glyphicon-chevron-up"></span>
     </div>
     <div class="new-comment-rollover-plus">
-        +
+        <span title="Rag on it" class="btn-sm glyphicon glyphicon-chevron-down"></span>
     </div>
 
     <form name="comment-form" class="new-comment-form">
@@ -23,7 +23,7 @@
                 <label for="new-comment-anonymous" class="new-comment-anonymous-label">
                     <span class="new-comment-anonymous">{{promptCommentAnonymous}}</span>
                 </label>
-                <input type="checkbox" name="new-comment-anonymous" class="new-comment-anonymous" />
+                <input type="checkbox" name="comment-anonymous" class="new-comment-anonymous" />
             </div>
         </fieldset>
     </form>

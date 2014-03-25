@@ -5,10 +5,15 @@ NEED TO LAUNCH
         log voter ips and check against votes
         fix routing issue on for share button, it's almost done!
         shortlinks
+        fix the stupid badges by doing it myself
         need to limit target & reason!
         expand comments by default on single post page
+        figure out if i like red or yellow hovers
+          and fix that nasty green over wih etc
+          this i might like red for hovers & gold for standouts like perma link
         move error strings & others out
         error check errors
+        comment votes
         fix comment triggers to use ids instead of classes smarty pants
         remove login errors upon login
         sterilize source

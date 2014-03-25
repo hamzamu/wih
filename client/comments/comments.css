@@ -87,11 +87,12 @@
     bottom: .25em;
     position: relative;
 }
+.comment-edit,
 .comment-stamp {
     color: white;
     float: left;
     font-size: .8em;
-    margin: .5em 1em; 
+    margin: .25em .4em; 
 }
 .comment-flag {
     display: none;
@@ -110,7 +111,6 @@
     font-weight: bold;
     margin: .5em 2em 1em 2em; 
 }
-.comment-edit,
 .comment-hate {
     float: left;
     font-size: .8em;

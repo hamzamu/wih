@@ -33,30 +33,24 @@
                 {{conjunction}}
                 <span class="post-reason">{{reason}}</span> 
             </p>
-            <p class="post-hates">
-                <a href="#" title="Show haters">
-                    {{comments}} people ragged on it
-                </a>
-            </p>
         </div>
         <div class="post-social">
-            <div class="comment-contractor">
-                <span title="Hide rags" class="btn-sm glyphicon glyphicon-circle-arrow-up"></span>
-                <span title="Hide rags" class="badge show-rags">{{comments}}</span>
+            <div title="Hide rags" class="comment-contractor">
+                <span class="glyphicon glyphicon-chevron-up"></span>
+                <span class="num-rags">{{comments}}</span>
             </div>
-            <div class="comment-expander">
-                <span title="Show rags" class="btn-sm glyphicon glyphicon-circle-arrow-down"></span>
-                <span title="Show rags" class="badge show-rags">{{comments}}</span>
+            <div title="Show rags" class="comment-expander">
+                <span class="glyphicon glyphicon-comment"></span>
+                <span class="num-rags">{{comments}}</span>
             </div>
             <div class="post-share-hate">
-                <button class="hate-on-it" type="button" 
+                <button title="Hate on it" class="hate-on-it" type="button" 
                         {{#if ownPost}} disabled="disabled"{{/if}}>
-                    <span title="Hate on it" class="badge pull-right">{{haters}}</span>
-                    <span title="Hate on it" class="glyphicon glyphicon-thumbs-down"></span>
+                    <span class="glyphicon glyphicon-thumbs-down"></span>
+                    <span class="num-haters">{{haters}}</span>
                 </button>
-                {{!-- <div class="share-button"></div> --}}
-                <button class="share-dis" type="button">
-                    <span title="Share dis hurr" class="glyphicon glyphicon-send"></span>
+                <button title="Share dis hurr" class="share-dis" type="button">
+                    <span class="glyphicon glyphicon-send"></span>
                 </button>
             </div>
         </div>

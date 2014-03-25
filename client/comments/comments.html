@@ -15,10 +15,10 @@
 
     <div class="comment-container">
         <div class="comment-stamp">
-            {{date}}
+            <span title="{{date}}" class="glyphicon glyphicon-time"></span>
         </div>
         {{#if ownComment}}
-            <div class="post-edit">
+            <div class="comment-edit">
                 <span title="Edit this" class="glyphicon glyphicon-edit"></span>
             </div>
         {{/if}}
@@ -36,18 +36,13 @@
             sayz
             {{comment}}
         </p>
-        <p class="comment-hate">
-            {{#if ownComment}}
-                {{haters}} users hate on it
-            {{else}}
-                {{#if haters}}
-                    {{haters}} users
-                    <a href="#" class="hate-comment">hate on it</a>
-                {{else}}
-                    <a href="#" class="hate-comment">Hate on it</a>
-                {{/if}}
-            {{/if}}
-        </p>
+        <span class="comment-hate">
+            <button title="Hate on it" class="hate-on-it" type="button" 
+                    {{#if ownPost}} disabled="disabled"{{/if}}>
+                <span class="glyphicon glyphicon-thumbs-down"></span>
+                <span class="num-haters">{{haters}}</span>
+            </button>
+        </span>
     </div>
 
 </template>

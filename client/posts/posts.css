@@ -1,6 +1,6 @@
 #new-post-container {
     background-color: #baa;
-    border: 1px solid grey;
+    border-bottom: 1px solid grey;
 }
 #new-post-rollover-minus,
 #new-post-rollover-plus {
@@ -10,15 +10,14 @@
     font-size: 1.4em;
     text-align: center;
 }
+#new-post-rollover-minus:hover,
 #new-post-rollover-plus:hover {
     color: gold;
+    cursor: pointer;
 }
 #new-post-rollover-minus {
     background-color: green;
     display: none;
-}
-#new-post-rollover-minus:hover {
-    color: gold;
 }
 #new-post-form {
     display: none;
@@ -65,8 +64,8 @@
 }
 .post-container {
     background-color: #baa;
-    border: 1px solid black;
     margin: 1em auto;
+    margin-bottom: 0px;
     width: 80%;
 }
 .post-meta {
@@ -132,23 +131,18 @@
     color: white;
     font-weight: bold;
     font-size: 1.4em;
+    margin-top: 1em;
     text-align: center;
 }
 #posts-load-more:hover {
     color: gold;
+    cursor: pointer;
 }
 #posts-load-more a {
     color: white;
 }
-.twitter-share-button,
-.fb-like {
-    clear: none;
-    float: right;
-    width: 150px;
-}
-.g-plusone {
-    float: right;
-    clear: none;
+#posts-load-more a:hover {
+    color: white;
 }
 .post-share-hate button {
     background-color: #722;
@@ -161,19 +155,13 @@
 .hate-on-it {
     color: white;
 }
-.share-dis:hover,
-.hate-on-it:hover {
-    color: gold;
-}
 .hate-on-it {
     width: 6em; 
 }
 .share-dis {
-    position: relative;
+    padding-top: .1em;
     text-align: center;
     width: 4em; 
 }
 .show-rags {
-    position: relative;
-    right: .1em;
 }

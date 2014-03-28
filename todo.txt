@@ -1,3 +1,27 @@
+keep releasable public work in arthur pioneer
+keep personal projects & interactions with others (non related to my projs) in arthax0r
+ibcodin
+apioneer
+codeloner
+lonecoder
+coneloder
+rekcah
+pioneera
+patientb
+codelonely
+lonelycoder
+brokecode
+brokecoder
+codebroke
+coderbroke
+zodeconer
+codezoner
+lasercode
+codelaser
+stonecode
+codestone
+
+
 NEED TO LAUNCH
 
     easy
@@ -11,14 +35,24 @@ NEED TO LAUNCH
         figure out if i like red or yellow hovers
           and fix that nasty green over wih etc
           this i might like red for hovers & gold for standouts like perma link
+        add console.log pretty function and everywhere if debug
         move error strings & others out
         error check errors
         comment votes
+        only allow editing for admins
+        isOwner/disable doesn't work now, change to js detection (client & srv)
+posting to sm -> queue & randomzie then post according to frequency setting,
+
         fix comment triggers to use ids instead of classes smarty pants
+        update database when post is shared by server or client
+            ie; serverTweeted $inc, userFacebooked: $inc, ownerGoogled
+            use this to select and share random data during slow times
         remove login errors upon login
         sterilize source
         stats
         meteor headers
+        when trying to post not logged in, after user does login,
+            it would be nice to complete submission & remove error :)
 
     medium
         make language filter my first package

@@ -91,6 +91,8 @@ Meteor.methods ({
      */
     postNew: function (postValues) {
 
+        // Should set default values then check against incoming
+        // ie; post.serverFB, user.Twitter (for sent to fb, sent to tw)
         var dupeTarget = false;
         var dupeReason = false;
         // Make sure they don't cheat

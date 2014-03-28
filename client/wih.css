@@ -18,6 +18,9 @@ a {
 :hover {
     color: red;
 }
+:active {
+    color: gold;
+}
 #site-meta {
     background-color: #333;
     margin: .5em auto;
@@ -25,6 +28,10 @@ a {
 }
 #site-logo {
     float: left;
+}
+#site-meta a:active,
+#site-meta a:hover {
+    color: white;
 }
 #login-buttons {
     float: right;

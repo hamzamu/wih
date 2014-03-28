@@ -152,67 +152,79 @@ Meteor.startup(function () {
                 Sitelog.insert ({countUniqueIPs: 1});
             }
         }
-
-
-
         // URLs
         // A URL's count is page views/url loads (I think)
         // countUniqueURLS is lifetime # of URLs that have existed
         // Strange, right?  Meteor. <3
         counter = 0;
         Sitelog.insert ({logURLs: urlObject});
-        if (uniqueURL = Sitelog.find({'uniqueURLs.url': url})) {
-            // Increment page view for this url
+        if (Sitelog.find({uniqueURLs: {$exists: true}})
+                && (uniqueURL = Sitelog.findOne({'uniqueURLs.url': url}))) {
+            // Get ID of record to update
+            id = uniqueURL._id;
+            // Increment count for this url
             counter = 1 + uniqueURL.count;
             // Updte existing record
-            Sitelog.update ({'uniqueURLs.url': url}, 
-                            {$set: {count: counter, stamp: stamp}});
+            Sitelog.update ({_id: id},
+                            {uniqueURLs: {url: url, count: counter, stamp: stamp}});
         } else {
             // Insert new unique URL record
-            Sitelog.update ({'uniqueURLs': {$exists: true}}, 
-                            {$addToSet: {url: url, count: 1, stamp: stamp}},
-                            true);
-            // Incremement unique URL count
-            Sitelog.update ({countUniqueURLs: {$exists: true}}, 
-                            {$inc: {countUniqueURLs: 1}}, true);
+            Sitelog.insert ({uniqueURLs: {url: url, count: 1, stamp: stamp}});
+            // Incremement or initialize unique URL count
+            if (!Sitelog.update ({countUniqueIPs: {$exists: true}}, 
+                                {$inc: {countUniqueURLs: 1}})) {
+                Sitelog.insert ({countUniqueURLs: 1});
+            }
         }
-        console.log('countUniqueURLs ' + Sitelog.countUniqueURLs);
-
         // Browser (user agent) log
         counter = 0;
-        if (uniqueBrowser = Sitelog.find({'browsers.browser': browser})) {
-            // Increment count for this agent string
-            browserCount = 1 + uniqueBrowser.count;
-            // Update count for this browser
-            Sitelog.update ({'uniqueBrowser.browser': browser}, 
-                            {$set: {count: counter, stamp: stamp}});
+        if (Sitelog.find({browsers: {$exists: true}})
+                && (uniqueBrowser = Sitelog.findOne({'browsers.browser': browser}))) {
+            // Get ID of record to update
+            id = uniqueBrowser._id;
+            // Increment count for this url
+            counter = 1 + uniqueBrowser.count;
+            // Updte existing record
+            Sitelog.update ({_id: id},
+                            {browsers: {browser: browser, count: counter, stamp: stamp}});
         } else {
             // Insert new browser
-            Sitelog.update ({browsers: {$exists: true}},
-                            {$addToSet: {browser: browser, count: 1, stamp: stamp}},
-                            true);
+            Sitelog.insert ({browsers: {browser: browser, count: 1, stamp: stamp}});
+            // Incremement or initialize browser count
+            if (!Sitelog.update ({countUniqueBrowsers: {$exists: true}}, 
+                                {$inc: {countUniqueBrowsers: 1}})) {
+                Sitelog.insert ({countUniqueBrowsers: 1});
+            }
         }
-console.log('browsers:\n' + JSON.stringify(Sitelog.browsers));
         // Visitors
-        Sitelog.insert ({logVisitorsRegistered: visitor});
+        Sitelog.insert ({logVisitors: visitor});
         // This is probably not going to work either
         if (userActive) {
             // Registered Visitors
-            Sitelog.update ({countVisitorsRegistered: {$exists: true}}, 
-                            {$inc: {countVisitorsRegistered: 1}}, true);
+            if (!Sitelog.update ({countVisitorsRegistered: {$exists: true}}, 
+                                {$inc: {countVisitorsRegistered: 1}}, true)) {
+                Sitelog.insert ({countVisitorsRegistered: 1});
+            }
         } else {
             // Anonymous Visitors
-            Sitelog.update ({countVisitorsAnonymous: {$exists: true}}, 
-                            {$inc: {countVisitorsAnonymous: 1}}, true);
+            if (!Sitelog.update ({countVisitorsAnonymous: {$exists: true}}, 
+                                {$inc: {countVisitorsAnonymous: 1}}, true)) {
+                Sitelog.insert ({countVisitorsAnonymous: 1});
+            }
         }
+
+
+
         // Primary language
         counter = 0;
         if (uniqueLanguage = Sitelog.find({'languages.language': languagePrimary})) {
+            // Grab ID
+            id = uniqueLanguage._id;
             // Increment count for this language
             counter = 1 + uniqueLanguage.count;
             // Update count for this language
-            Sitelog.update ({'languages.language': language}, 
-                            {$set: {count: counter, stamp: stamp}});
+            Sitelog.update ({_id: id}, 
+                            {language: languagePrimary, count: counter, stamp: stamp});
         } else {
             // Insert new language
             Sitelog.update ({languages: {$exists: true}},
@@ -222,16 +234,16 @@ console.log('browsers:\n' + JSON.stringify(Sitelog.browsers));
         // Secondary language
         counter = 0;
         if (uniqueLanguage = Sitelog.find({'languages.language': languageSecondary})) {
+            // Grab ID
+            id = uniqueLanguage._id;
             // Increment count for this language
             counter = 1 + uniqueLanguage.count;
             // Update count for this language
-            Sitelog.update ({'languages.language': language}, 
-                            {$set: {count: counter, stamp: stamp}});
+            Sitelog.update ({_id: id}, 
+                            {language: languageSecondary, count: counter, stamp: stamp});
         } else {
             // Insert new language
-            Sitelog.update ({languages: {$exists: true}},
-                            {$addToSet: {languages: languageSecondary, count: 1, stamp: stamp}},
-                            true);
+            Sitelog.insert ({languages: {language: languageSecondary, count: 1, stamp: stamp}});
         }
 
         // Template count?

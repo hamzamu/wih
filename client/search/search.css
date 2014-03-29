@@ -1,0 +1,10 @@
+#search input {
+    padding-right: 10px;
+}
+
+#search span {
+    color: black;
+    float: right;
+    right: 10px;
+    top: -27px;
+}

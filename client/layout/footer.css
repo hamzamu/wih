@@ -1,0 +1,49 @@
+#site-footer {
+    background-color: #400;
+    border: 1px solid #400;
+    color: gold;
+    height: 2em;
+    margin-top: 0px;
+    text-align: center;
+}
+#site-footer p {
+    font-size: .9em;
+}
+#site-footer a {
+    color: #dde;
+}
+#site-footer ul {
+    list-style: none;
+    margin: .2em auto;
+    width: 80%;
+}
+#site-footer li {
+    display: inline;
+    margin: .2em 1em;
+}
+#site-footer span {
+    color: white;
+    cursor: pointer;
+}
+#site-footer span:hover {
+    color: gold;
+}
+#site-footer .dropdown-menu {
+    background-color: #511;
+    border: 2px solid #400;
+    border-bottom: 0px none;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    margin: 4px auto;
+    padding: .6em .5em;
+    text-align: left;
+}
+#site-footer .dropdown-menu ul {
+    margin: 0px 0px;
+    padding: 0px 0px;
+}
+#site-footer .dropdown-menu li {
+    display: block;
+    margin: 0px 0px;
+    padding: 0px 0px;
+}

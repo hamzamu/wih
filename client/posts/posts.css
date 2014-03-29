@@ -57,6 +57,7 @@
 }
 #new-post-form input[type="checkbox"] {
     bottom: .25em;
+    cursor: pointer;
     position: relative;
 }
 #posts-container {
@@ -78,6 +79,7 @@
 .post-edit,
 .post-stamp {
     color: white;
+    cursor: pointer;
     float: left;
     font-size: .8em;
     margin: .25em .4em; 
@@ -89,13 +91,16 @@
     float: right;
     margin: .25em 1em; 
     position: relative;
-    top: -.2em;
+    top: 0px;
 }
 .post-edit:hover,
 .post-favorite:hover,
 .post-link:hover,
 .post-flag:hover {
     color: gold;
+}
+.post-stamp {
+    cursor: default;
 }
 .post {
     clear: both;
@@ -123,8 +128,11 @@
 .post-social {
     background-color: #877;
     font-weight: bold;
-    font-size: .9em;
+    font-size: .8em;
     height: 1.7em;
+}
+.post-social span {
+    margin-right: .5em;
 }
 #posts-load-more {
     background-color: red;
@@ -164,4 +172,28 @@
     width: 4em; 
 }
 .show-rags {
+}
+
+.post-share .dropdown-menu {
+    background-color: #722;
+    border: 1px solid #400;
+    border-bottom: 1px solid #511;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    color: gold;
+    margin: 0px auto;
+    padding: .6em .5em;
+    text-align: center;
+}
+.post-share .dropdown-menu ul {
+    margin: 0px 0px;
+    padding: 0px 0px;
+}
+.post-share .dropdown-menu li {
+    display: block;
+    margin: 0px 0px;
+    padding: 0px 0px;
+}
+.post-share a {
+    padding: .25em .6em;
 }

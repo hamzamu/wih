@@ -18,23 +18,35 @@ a {
 :hover {
     color: red;
 }
-:active {
+a:active,
+:active,
+a:visited,
+:visited {
     color: gold;
 }
 #site-meta {
-    background-color: #333;
+    line-height: 1.5em;
     margin: .5em auto;
     max-width: 720px;
 }
 #site-logo {
     float: left;
 }
+#site-tour {
+    float: right;
+    margin: 0px 2em 0px 0em;
+}
 #site-meta a:active,
 #site-meta a:hover {
     color: white;
+    text-decoration: none;
 }
 #login-buttons {
     float: right;
+    line-height: 1.5em;
+}
+#login-buttons a {
+    text-decoration: none;
 }
 #search-container {
     display: none;
@@ -49,30 +61,12 @@ a {
 #content-container {
     width: 100%;
 }
-#site-footer {
-    background-color: #400;
-    border: 1px solid #400;
-    font-size: .9em;
-    font-weight: bold;
-    height: 2em;
-    margin-top: 0px;
-    text-align: center;
-}
-#site-footer a {
-    color: #dde;
-}
-#site-footer ul {
-    list-style: none;
-    margin: .2em auto;
-    width: 80%;
-}
-#site-footer li {
-    display: inline;
-    margin: .2em 1em;
-}
-#site-footer span {
-    color: white;
-}
-#site-footer span:hover {
+#login-dropdown-list,
+#login-dropdown-list :hover {
+    background-color: #877;
+    border-color: #511;
     color: gold;
+}
+#login-buttons .login-button {
+    background-color: #722;
 }

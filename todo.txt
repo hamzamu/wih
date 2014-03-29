@@ -4,6 +4,7 @@ ibcodin
 apioneer
 codeloner
 lonecoder
+    often imitated, never duplicated
 coneloder
 rekcah
 pioneera
@@ -36,6 +37,7 @@ NEED TO LAUNCH
           and fix that nasty green over wih etc
           this i might like red for hovers & gold for standouts like perma link
         add console.log pretty function and everywhere if debug
+slide out timer w/randomization
         move error strings & others out
         error check errors
         comment votes

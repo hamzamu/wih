@@ -21,6 +21,8 @@ Meteor.startup(function () {
         var ip = null;
         var isProxied = 1 < h.ipTotal ? true : false;
         var numProxies = h.ipTotal;
+        // This is so impractical to be so difficult
+        //  How is iron-router doing it, cuz it's not loaded yet!
         var url = process.env.ROOT_URL;
         var browser = h.browser;
         var userActive = this.userId;

@@ -29,6 +29,7 @@
 .new-comment-rollover-plus {
     background-color: red;
     color: white;
+    cursor: pointer;
     font-weight: bold;
     font-size: 1.4em;
     height: 20px;
@@ -85,6 +86,7 @@
 }
 .new-comment-form input[type="checkbox"] {
     bottom: .25em;
+    cursor: pointer;
     position: relative;
 }
 .comment-edit,

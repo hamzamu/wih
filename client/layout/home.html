@@ -6,12 +6,20 @@
     <div id="site-meta">
         <div id="site-logo">
             <a title="I need a fuckin' logo, want to make it?  Click the pencil at the bottom and let me know!  Or click this bitch hurr to return to the home page" href="/">
-                WiH
+                <span class="glyphicon glyphicon-fire"></span>
             </a>
         </div>
         <div id="login-buttons">
             {{loginButtons align="right"}}
         </div>
+        {{#if currentUser}}
+        {{else}}
+            <div id="site-tour">
+                <a title="Take a Tour" href="#">
+                    <span title="Tour dis bit'" class="glyphicon glyphicon-road"></span>
+                </a>
+            </div>
+        {{/if}}
     </div>
     <div id="site">
         <div id="new-post-container">

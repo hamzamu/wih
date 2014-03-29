@@ -49,11 +49,29 @@
                     <span class="glyphicon glyphicon-thumbs-down"></span>
                     <span class="num-haters">{{haters}}</span>
                 </button>
-                <button title="Share dis hurr" class="share-dis" type="button">
-                    <span class="glyphicon glyphicon-send"></span>
-                </button>
+                <div class="btn-group dropup post-share">
+                    <button title="Share dis hurr" type="button" class="dropdown-toggle share-dis" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-send"></span>
+                        <span class="sr-only">Get some fucking help</span>
+                    </button>
+                    {{!-- can remove pull-right after upgrading to BS3 --}}
+                    <div class="dropdown-menu .dropdown-menu-right pull-right post-share-networks">
+                        <ul>
+                            <a href="#">
+                                <span title="Like dis shit" class="glyphicon glyphicon-thumbs-down"></span>
+                            </a>
+                            <a href="#">
+                                <span title="Plus 1 a mothafucka" class="glyphicon glyphicon-plus"></span>
+                            </a>
+                            <a href="#">
+                                <span title="Tweetz dis bitch" class="glyphicon glyphicon-retweet"></span>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         {{> comments}}
     </div>
 </template>
+
